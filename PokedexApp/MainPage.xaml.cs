@@ -1,24 +1,82 @@
-﻿namespace PokedexApp
+﻿using PokedexApp.Models;
+using PokedexApp.Services;
+using PokedexApp.Views;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+
+namespace PokedexApp
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        CancellationTokenSource _filterCts;
+        PokeApiService _service = new PokeApiService();
+        List<PokemonListItem> _fullPokemonList = new();
+        public ObservableCollection<PokemonListItem> FilteredPokemonList { get; set; }
 
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = this;
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        protected override void OnAppearing()
         {
-            count++;
+            base.OnAppearing();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+            if (_fullPokemonList.Any()) return;
+            MainThread.BeginInvokeOnMainThread(async () => await TestLoadPokemonList());
+        }
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+        public async Task TestLoadPokemonList()
+        {
+            _fullPokemonList = await _service.GetPokemonListItemsAsync();
+            FilteredPokemonList = new ObservableCollection<PokemonListItem>(_fullPokemonList);
+            pokemonList.ItemsSource = FilteredPokemonList;
+        }
+
+        private async void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // To reduce lag, I create a cancellation token which gets cancelled at the start of the method. This way, only when the user
+            // has stopped typing for 250ms will the method continue. Otherwise, when a new letter is typed the method for the old letter
+            // will throw an exception and be stopped.
+
+            _filterCts?.Cancel();
+            _filterCts = new CancellationTokenSource();
+
+            try
+            {
+                await Task.Delay(250, _filterCts.Token);
+                var text = e.NewTextValue?.Trim() ?? string.Empty;
+                
+                var filteredPokemon = string.IsNullOrEmpty(text) ?
+                    _fullPokemonList :
+                    _fullPokemonList.Where(p => p.Name.Contains(text));
+
+                FilteredPokemonList.Clear();
+                foreach (var p in filteredPokemon)
+                    FilteredPokemonList.Add(p);
+            }
+            catch (TaskCanceledException) { }
+        }
+
+        private async void pokemonList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.CurrentSelection.FirstOrDefault() is PokemonListItem item)
+            {
+                try
+                {
+                    var pokemon = await _service.GetPokemonAsync(item.Name);
+                    await Navigation.PushAsync(new DetailsPage(pokemon));
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlertAsync("Error", $"Could not load that Pokémon! :(\n{ex.Message}", "OK :(");
+                }
+                finally
+                {
+                    pokemonList.SelectedItem = null;
+                }
+            }
         }
     }
 }

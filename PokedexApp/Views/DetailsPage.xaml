@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PokedexApp.Views.DetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/maui/global"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/maui/global/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:PokedexApp.Views"
+    mc:Ignorable="d"
+    BackgroundColor="{Binding Color}"
+    x:Name="contentPage">
+
+    <!--<ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            --><!--<GradientStop Color="AntiqueWhite" Offset="0.1"/>-->
+            <!--<GradientStop Color="#8d072b" Offset="1.0"/>--><!--
+        </LinearGradientBrush>
+    </ContentPage.Background>-->
+
+
+    <ContentPage.Content>
+        <ScrollView>
+        
+        <Grid RowDefinitions="350, *">
+
+            <!--TOP SPRITE VIEW-->
+            <Image WidthRequest="400" HeightRequest="400" Source="{Binding Sprite}" Grid.Row="0" TranslationY="30"/>
+
+            <Border StrokeShape="RoundRectangle 80,80,0,0" StrokeThickness="0" Grid.Row="1">
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="20" Padding="50,20" Grid.Row="1" BackgroundColor="White">
+
+                    <!--NAME LABEL-->
+                <HorizontalStackLayout Grid.Row="0" Spacing="5" HorizontalOptions="Center">
+                    <Label TextColor="Black" FontSize="35" FontAttributes="Bold" Text="{Binding Name}" HorizontalOptions="Center" x:Name="NameLabel"/>
+                    <Label TextColor="Gray" FontSize="35" Text="{Binding Id, StringFormat='#{0:000}'}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <!--TYPES-->
+                <CollectionView Grid.Row="1" HorizontalOptions="Center" ItemsSource="{Binding Types}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="12"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                                <Border StrokeShape="RoundRectangle 20" Padding="15,1,15,0">
+                                    <Label TextColor="Gray" Text="{Binding .}" FontSize="Medium" FontAttributes="Bold"/>
+                                </Border>
+                            </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!--DESCRIPTION-->
+                <Label TextColor="Black" Text="{Binding Description}" FontSize="Small" Grid.Row="2" HorizontalOptions="Center"/>
+
+                <!--WEIGHT & HEIGHT-->
+                <Grid ColumnDefinitions="*, *" Grid.Row="3" ColumnSpacing="20">
+                    
+                    <VerticalStackLayout HorizontalOptions="Fill" Grid.Column="0" Spacing="5">
+                        <Label TextColor="Black" Text="Weight:" Margin="8,0"/>
+                        <Border StrokeShape="RoundRectangle 15" Padding="10" HorizontalOptions="Fill">
+                                <Label TextColor="Black" Text="{Binding Weight, StringFormat='{0:F1} kg'}" FontSize="Small" HorizontalOptions="Center"/>
+                        </Border>
+                    </VerticalStackLayout>
+                        <VerticalStackLayout HorizontalOptions="Fill" Grid.Column="1" Spacing="5">
+                            <Label TextColor="Black" Text="Height:" Margin="8,0"/>
+                            <Border StrokeShape="RoundRectangle 15" Padding="10" HorizontalOptions="Fill">
+                                <Label TextColor="Black" Text="{Binding Height, StringFormat='{0:F1} m'}" FontSize="Small" HorizontalOptions="Center"/>
+                            </Border>
+                    </VerticalStackLayout>
+                </Grid>
+                
+                <!--STRENGTHS & WEAKNESSES-->
+                <Grid ColumnDefinitions="*, *" ColumnSpacing="10" Grid.Row="4" x:Name="StrongWeakGrid">
+
+                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="5">
+                        <Label TextColor="Black" Text="Strengths:"/>
+                        <CollectionView x:Name="strengthsList" ItemsSource="{Binding StrongAgainst}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border StrokeShape="RoundRectangle 20" Padding="15,1,15,0">
+                                        <Label TextColor="Gray" Text="{Binding .}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="5">
+                        <Label TextColor="Black" Text="Weaknesses:" x:Name="TEST"/>
+                        <CollectionView x:Name="weaknessesList" ItemsSource="{Binding WeakAgainst}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border StrokeShape="RoundRectangle 20" Padding="15,1,15,0">
+                                        <Label TextColor="Gray" Text="{Binding .}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                    
+                </Grid>
+
+                <!--EVOLUTIONS-->
+                <VerticalStackLayout Grid.Row="5">
+                    <Label TextColor="Black" Text="Evolutions" FontSize="Medium" HorizontalOptions="Center"/>
+                    <CollectionView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+            </Grid>
+            </Border>
+
+            
+            <!--POKEDEX FRAME GRID-->
+                <AbsoluteLayout>
+                    <Grid RowDefinitions="70,*,25" ColumnDefinitions="25,*,25" 
+                          WidthRequest="{Binding Source={x:Reference contentPage}, Path=Width}"
+                          HeightRequest="{Binding Source={x:Reference contentPage}, Path=Height}">
+                        <BoxView Grid.Row="0" Grid.Column="0" Color="Red"/>
+                        <!--<BoxView Grid.Row="0" Grid.Column="1" Color="DarkRed"/>-->
+                        <BoxView Grid.Row="0" Grid.Column="2" Color="Red"/>
+                        <BoxView Grid.Row="1" Grid.Column="0" Color="DarkRed"/>
+                        <BoxView Grid.Row="1" Grid.Column="2" Color="DarkRed"/>
+                        <BoxView Grid.Row="2" Grid.Column="0" Color="Red"/>
+                        <BoxView Grid.Row="2" Grid.Column="1" Color="DarkRed"/>
+                        <BoxView Grid.Row="2" Grid.Column="2" Color="Red"/>
+                        <Image Source="pokedexframe_right.png" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Aspect="Fill" Shadow="-2 0 6 Black 0.5"/>
+                        <Image Source="pokedexframe_left.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Aspect="Fill" Shadow="2 0 6 Black 0.5"/>
+                        <Image Source="pokedexframe_topleft.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Aspect="Fill" Shadow="0 4 6 Black 0.5"/>
+
+                    </Grid>
+                </AbsoluteLayout>
+            
+        </Grid>
+            
+        </ScrollView>
+
+    </ContentPage.Content>
+</ContentPage>
