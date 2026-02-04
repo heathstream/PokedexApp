@@ -65,10 +65,22 @@
 	  <Compile Update="Views\DetailsPage.xaml.cs">
 	    <DependentUpon>DetailsPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\PokedexFrameView.xaml.cs">
+	    <DependentUpon>PokedexFrameView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\TypeRelationCollectionView.xaml.cs">
+	    <DependentUpon>TypeRelationCollectionView.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\DetailsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PokedexFrameView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\TypeRelationCollectionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

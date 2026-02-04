@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace PokedexApp.Models
 {
@@ -16,10 +17,24 @@ namespace PokedexApp.Models
         public string flavor_text { get; set; }
 
     }
+
+    // SPRITE
     public class Sprites
+    {
+        //public string front_default { get; set; }
+        public other other { get; set; }
+    }
+    public class other
+    {
+        [JsonPropertyName("official-artwork")]
+        public official_artwork official_artwork { get; set; }
+    }
+    public class official_artwork
     {
         public string front_default { get; set; }
     }
+
+    // TYPE
     public class Type
     {
         public string name { get; set; }

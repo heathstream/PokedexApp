@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:PokedexApp.Views"
              x:Class="PokedexApp.MainPage"
-             HeightRequest="2000">
+             HeightRequest="2000"
+             x:Name="contentPage">
 
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -10,60 +12,65 @@
             <!--<GradientStop Color="#8d072b" Offset="1.0"/>-->
         </LinearGradientBrush>
     </ContentPage.Background>
-    
-    <ScrollView>
-        
-        <Grid RowSpacing="15">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="500"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-            <!--ENTRY BOX & SEARCH BUTTON-->
-            <Grid Grid.Row="1" Grid.Column="1" Padding="0" ColumnSpacing="5">
+
+    <Grid>
+        <ScrollView>
+
+            <Grid RowSpacing="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="500"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Border Grid.Column="0" StrokeShape="RoundRectangle 30" StrokeThickness="0">
-                    <Entry TextColor="Black" BackgroundColor="White" TextChanged="Entry_TextChanged" ClearButtonVisibility="WhileEditing"/>
-                </Border>
-                <Border Grid.Column="1" StrokeShape="RoundRectangle 30" StrokeThickness="0">
-                    <Button TextColor="White" BackgroundColor="#60c480" Text="Search"  FontAttributes="Bold" HorizontalOptions="Fill"/>
+
+                <!--ENTRY BOX & SEARCH BUTTON-->
+                <Grid Grid.Row="1" Grid.Column="1" Padding="0" ColumnSpacing="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" StrokeShape="RoundRectangle 30" StrokeThickness="0">
+                        <Entry TextColor="Black" BackgroundColor="White" TextChanged="Entry_TextChanged" ClearButtonVisibility="WhileEditing"/>
+                    </Border>
+                    <Border Grid.Column="1" StrokeShape="RoundRectangle 30" StrokeThickness="0">
+                        <Button TextColor="White" BackgroundColor="#60c480" Text="Search"  FontAttributes="Bold" HorizontalOptions="Fill"/>
+                    </Border>
+                </Grid>
+
+                <!--SEARCH RESULTS LIST-->
+                <Border Grid.Row="2" Grid.Column="1" StrokeShape="RoundRectangle 5" StrokeThickness="0">
+                    <ScrollView>
+                        <CollectionView x:Name="pokemonList" BackgroundColor="AntiqueWhite" SelectionMode="Single" ItemsSource="{Binding FilteredPokemonList}" SelectionChanged="pokemonList_SelectionChanged">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <BoxView Grid.Column="0" WidthRequest="40" HeightRequest="40" Margin="10,0,0,0"/>
+                                        <VerticalStackLayout Padding="10" Grid.Column="1">
+                                            <Label TextColor="Black" FontAttributes="Bold" Text="{Binding Name}" HorizontalOptions="Fill" FontSize="15"/>
+                                            <Label TextColor="Black" Text="{Binding Url}" HorizontalOptions="Fill"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </ScrollView>
                 </Border>
             </Grid>
 
-            <!--SEARCH RESULTS LIST-->
-            <Border Grid.Row="2" Grid.Column="1" StrokeShape="RoundRectangle 5" StrokeThickness="0">
-                <ScrollView>
-                    <CollectionView x:Name="pokemonList" BackgroundColor="AntiqueWhite" SelectionMode="Single" ItemsSource="{Binding FilteredPokemonList}" SelectionChanged="pokemonList_SelectionChanged">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <BoxView Grid.Column="0" WidthRequest="40" HeightRequest="40" Margin="10,0,0,0"/>
-                                    <VerticalStackLayout Padding="10" Grid.Column="1">
-                                        <Label TextColor="Black" FontAttributes="Bold" Text="{Binding Name}" HorizontalOptions="Fill" FontSize="15"/>
-                                        <Label TextColor="Black" Text="{Binding Url}" HorizontalOptions="Fill"/>
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </ScrollView>
-            </Border>
-        </Grid>
-        
-        
-    </ScrollView>
+        </ScrollView>
+
+        <views:PokedexFrameView ScaleX="-1" />
+
+    </Grid>
 
 </ContentPage>

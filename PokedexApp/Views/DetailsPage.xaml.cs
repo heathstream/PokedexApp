@@ -1,11 +1,43 @@
 ﻿using PokedexApp.Models;
+using System.ComponentModel;
 
 namespace PokedexApp.Views
 {
-    public partial class DetailsPage : ContentPage
+    public partial class DetailsPage : ContentPage, INotifyPropertyChanged
     {
-        public List<PokemonType> StrongAgainst;
-        public List<PokemonType> WeakAgainst;
+        public string StrengthsString { get; } = "Strengths:";
+        public string WeaknessesString { get; } = "Weaknesses:";
+        public string ImmunitiesString { get; } = "Immune to:";
+        Dictionary<PokemonType, double> _strengths;
+        Dictionary<PokemonType, double> _weaknesses;
+        Dictionary<PokemonType, double> _immunities;
+        public Dictionary<PokemonType, double> Strengths
+        {
+            get { return _strengths; }
+            set
+            {
+                _strengths = value;
+                OnPropertyChanged(nameof(Strengths));
+            }
+        }
+        public Dictionary<PokemonType, double> Weaknesses
+        {
+            get { return _weaknesses; }
+            set
+            {
+                _weaknesses = value;
+                OnPropertyChanged(nameof(Weaknesses));
+            }
+        }
+        public Dictionary<PokemonType, double> Immunities
+        {
+            get { return _immunities; }
+            set
+            {
+                _immunities = value;
+                OnPropertyChanged(nameof(Immunities));
+            }
+        }
         public DetailsPage()
         {
             InitializeComponent();
@@ -14,32 +46,13 @@ namespace PokedexApp.Views
         {
             BindingContext = pokemon;
 
-            if (pokemon.TypeRelations.Count > 1)
-            {
-                StrongAgainst = pokemon.TypeRelations[0].StrongAgainst
-                    .Concat(pokemon.TypeRelations[1].StrongAgainst)
-                    .Distinct()
-                    .ToList();
+            Strengths = TypeRelations.GetStrengths(pokemon);
+            Weaknesses = TypeRelations.GetWeaknesses(pokemon);
+            Immunities = TypeRelations.GetImmunities(pokemon);
 
-                WeakAgainst = pokemon.TypeRelations[0].WeakAgainst
-                    .Concat(pokemon.TypeRelations[1].StrongAgainst)
-                    .Distinct()
-                    .ToList();
-
-                foreach(var t in Enum.GetValues<PokemonType>())
-                    if (StrongAgainst.Contains(t) && WeakAgainst.Contains(t))
-                    {
-                        StrongAgainst.Remove(t);
-                        WeakAgainst.Remove(t);
-                    }
-            }
-            else
-            {
-                StrongAgainst = pokemon.TypeRelations.First().StrongAgainst;
-                WeakAgainst = pokemon.TypeRelations.First().WeakAgainst;
-            }
-            strengthsList.ItemsSource = StrongAgainst;
-            weaknessesList.ItemsSource = WeakAgainst;
+            //strengthsList.BindingContext = Strengths;
+            //weaknessesList.ItemsSource = Weaknesses;
+            //immunitiesList.ItemsSource = Immunities;
         }
     }
 }

@@ -14,12 +14,13 @@ namespace PokedexApp.Services
         HttpClient httpClient;
 
         Dictionary<string, Pokemon> _pokemonCache = new();
-        Dictionary<PokemonType, PokemonTypeRelations> _typeRelationsCache = new();
         List<PokemonListItem> _pkmnListItemCache = new();
 
         public PokeApiService()
         {
             httpClient = new HttpClient();
+            var t = Task.Run(() => GetTypeRelationsAsync());
+            t.Wait();
         }
 
         public async Task<Pokemon> GetPokemonAsync(string name)
@@ -33,11 +34,8 @@ namespace PokedexApp.Services
             SpeciesApiData? speciesApiData = await httpClient.GetFromJsonAsync<SpeciesApiData>(uri);
 
             var pokemon = new Pokemon(pokemonApiData, speciesApiData);
-
-            foreach (var type in pokemon.Types)
-                pokemon.TypeRelations.Add(await GetTypeRelationsAsync(type));
-
             _pokemonCache[name] = pokemon;
+
             return pokemon;
         }
 
@@ -55,16 +53,20 @@ namespace PokedexApp.Services
             return listItems;
         }
 
-        public async Task<PokemonTypeRelations> GetTypeRelationsAsync(PokemonType type)
+        public async Task GetTypeRelationsAsync()
         {
-            //if (_typeRelationsCache.TryGetValue(type, out PokemonTypeRelations? ptr))
-            //    return ptr;
+            foreach (var type in Enum.GetValues<PokemonType>())
+            {
+                var uri = $"https://pokeapi.co/api/v2/type/{type.ToString()}";
+                TypeApiData? typeApiData = await httpClient.GetFromJsonAsync<TypeApiData>(uri);
 
-            var uri = $"https://pokeapi.co/api/v2/type/{type}";
-
-            TypeApiData? typeApiData = await httpClient.GetFromJsonAsync<TypeApiData>(uri);
-
-            return new PokemonTypeRelations(typeApiData);
+                foreach (var other in typeApiData.damage_relations.double_damage_from)
+                    TypeRelations.Chart[type][Enum.Parse<PokemonType>(other.name, true)] = 2.0f;
+                foreach (var other in typeApiData.damage_relations.half_damage_from)
+                    TypeRelations.Chart[type][Enum.Parse<PokemonType>(other.name, true)] = 0.5f;
+                foreach (var other in typeApiData.damage_relations.no_damage_from)
+                    TypeRelations.Chart[type][Enum.Parse<PokemonType>(other.name, true)] = 0.0f;
+            }
         }
     }
 }
