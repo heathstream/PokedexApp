@@ -16,6 +16,7 @@ namespace PokedexApp.Models
         public string Description { get; init; }
         public List<Pokemon>? EvolutionChain { get; set; }
         public Color Color { get; set; }
+        public string EvolutionChainUrl { get; set; }
 
         public Pokemon(PokemonApiData pData, SpeciesApiData sData)
         {
@@ -25,7 +26,7 @@ namespace PokedexApp.Models
             Height = pData.height / 10;
             Sprite = pData.sprites.other.official_artwork.front_default;
             Types = pData.types.Select(t => Enum.Parse<PokemonType>(t.type.name, true)).ToList();
-
+            EvolutionChainUrl = sData.evolution_chain.url;
             Color = PokemonColors.FromString(sData.color.name);
             Description = sData.flavor_text_entries
                 .Last(t => t.language.name == "en")

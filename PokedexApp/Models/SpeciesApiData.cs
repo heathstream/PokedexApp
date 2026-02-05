@@ -9,6 +9,7 @@ namespace PokedexApp.Models
     {
         public flavor_text_entry[] flavor_text_entries { get; set; }
         public color color { get; set; }
+        public evolution_chain evolution_chain { get; set; }
     }
 
     public class flavor_text_entry
@@ -25,5 +26,10 @@ namespace PokedexApp.Models
     public class color
     {
         public string name { get; set; }
+    }
+
+    public class evolution_chain
+    {
+        public string url { get; set; }
     }
 }

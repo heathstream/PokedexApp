@@ -6,19 +6,20 @@ namespace PokedexApp.Models
 {
     public class EvolutionChainApiData
     {
-        public chain chain { get; set; }
+        public int id { get; set; }
+        public chainlink chain { get; set; }
     }
 
-    public class chain
+    public class chainlink
     {
-        public evolution_details evolution_details { get; set; }
+        public List<evolution_detail> evolution_details { get; set; }
         public species species { get; set; }
-        public chain? evolves_to { get; set; }
+        public List<chainlink> evolves_to { get; set; }
     }
 
-    public class evolution_details
+    public class evolution_detail
     {
-        public int min_level { get; set; }
+        public int? min_level { get; set; }
     }
 
     public class species

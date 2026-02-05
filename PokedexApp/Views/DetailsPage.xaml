@@ -30,7 +30,7 @@
                     <Image WidthRequest="300" HeightRequest="300" Source="{Binding Sprite}" Grid.Row="0" TranslationY="30"/>
 
                     <Border StrokeShape="RoundRectangle 80,80,0,0" StrokeThickness="0" Grid.Row="1">
-                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="20" Padding="50,20" Grid.Row="1" BackgroundColor="White">
+                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="25" Padding="50,20" Grid.Row="1" BackgroundColor="White">
 
                             <!--NAME LABEL-->
                             <HorizontalStackLayout Grid.Row="0" Spacing="5" HorizontalOptions="Center">
@@ -61,13 +61,13 @@
                                 <VerticalStackLayout HorizontalOptions="Fill" Grid.Column="0" Spacing="5">
                                     <Label TextColor="Black" Text="Weight:" Margin="8,0"/>
                                     <Border StrokeShape="RoundRectangle 15" Padding="10" HorizontalOptions="Fill">
-                                        <Label TextColor="Black" Text="{Binding Weight, StringFormat='{0:F1} kg'}" FontSize="Small" HorizontalOptions="Center"/>
+                                        <Label TextColor="Black" Text="{Binding Weight, StringFormat='{0:F1} kg'}" FontSize="Medium" HorizontalOptions="Center"/>
                                     </Border>
                                 </VerticalStackLayout>
                                 <VerticalStackLayout HorizontalOptions="Fill" Grid.Column="1" Spacing="5">
                                     <Label TextColor="Black" Text="Height:" Margin="8,0"/>
                                     <Border StrokeShape="RoundRectangle 15" Padding="10" HorizontalOptions="Fill">
-                                        <Label TextColor="Black" Text="{Binding Height, StringFormat='{0:F1} m'}" FontSize="Small" HorizontalOptions="Center"/>
+                                        <Label TextColor="Black" Text="{Binding Height, StringFormat='{0:F1} m'}" FontSize="Medium" HorizontalOptions="Center"/>
                                     </Border>
                                 </VerticalStackLayout>
                             </Grid>
