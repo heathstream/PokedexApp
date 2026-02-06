@@ -73,27 +73,49 @@
                             </Grid>
 
                             <!--STRENGTHS & WEAKNESSES-->
-                            <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10" Grid.Row="4" BindingContext="{x:Reference contentPage}">
+                            <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10" Grid.Row="5" BindingContext="{x:Reference contentPage}">
 
-                                <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="8">
+                                <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="15">
                                     <Label FontSize="Small" TextColor="Black" Text="{Binding StrengthsString}" HorizontalOptions="Center"/>
                                     <local:TypeRelationCollectionView BindingContext="{Binding Strengths}"/>
                                 </VerticalStackLayout>
 
-                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="8">
+                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="15">
                                     <Label FontSize="Small" TextColor="Black" Text="{Binding WeaknessesString}" HorizontalOptions="Center"/>
                                     <local:TypeRelationCollectionView BindingContext="{Binding Weaknesses}"/>
                                 </VerticalStackLayout>
 
-                                <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="8">
+                                <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="15">
                                     <Label FontSize="Small" TextColor="Black" Text="{Binding ImmunitiesString}" HorizontalOptions="Center"/>
                                     <local:TypeRelationCollectionView BindingContext="{Binding Immunities}"/>
                                 </VerticalStackLayout>
 
                             </Grid>
-
+                            
+                            <!--BASE STATS-->
+                            <VerticalStackLayout Grid.Row="4" Spacing="10">
+                                <Label TextColor="Black" Text="Base Stats:" FontSize="Small" HorizontalOptions="Center"/>
+                                <CollectionView ItemsSource="{Binding BaseStats}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid ColumnDefinitions="80,40,*" ColumnSpacing="20">
+                                                <Label TextColor="Gray" FontSize="Small" Grid.Column="0" 
+                                                       Text="{Binding StatString, StringFormat='{0}:'}" HorizontalOptions="End" VerticalOptions="Center"/>
+                                                <Label TextColor="Black" FontSize="Medium" Grid.Column="1" 
+                                                       Text="{Binding Number}" HorizontalOptions="End" VerticalOptions="Center"/>
+                                                <ProgressBar ProgressColor="#DDDDDD" BackgroundColor="Transparent" ScaleY="6" 
+                                                             Grid.Column="2" Progress="1"/>
+                                                <ProgressBar ProgressColor="OrangeRed" BackgroundColor="Transparent" ScaleY="3" 
+                                                             Grid.Column="2" Progress="{Binding NumberNormalized}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </VerticalStackLayout>
+                            
+                            
                             <!--EVOLUTIONS-->
-                            <VerticalStackLayout Grid.Row="5">
+                            <!--<VerticalStackLayout Grid.Row="6">
                                 <Label TextColor="Black" Text="Evolutions" FontSize="Medium" HorizontalOptions="Center"/>
                                 <CollectionView>
                                     <CollectionView.ItemTemplate>
@@ -102,7 +124,7 @@
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
-                            </VerticalStackLayout>
+                            </VerticalStackLayout>-->
 
                         </Grid>
                     </Border>

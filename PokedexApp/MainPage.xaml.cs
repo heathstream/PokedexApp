@@ -10,8 +10,8 @@ namespace PokedexApp
     {
         CancellationTokenSource _filterCts;
         PokeApiService _service = new PokeApiService();
-        List<PokemonListItem> _fullPokemonList = new();
-        public ObservableCollection<PokemonListItem> FilteredPokemonList { get; set; }
+        List<Pokemon> _fullPokemonList = new();
+        public ObservableCollection<Pokemon> FilteredPokemonList { get; set; } = new();
 
         public MainPage()
         {
@@ -24,13 +24,14 @@ namespace PokedexApp
             base.OnAppearing();
 
             if (_fullPokemonList.Any()) return;
-            MainThread.BeginInvokeOnMainThread(async () => await TestLoadPokemonList());
+            MainThread.BeginInvokeOnMainThread(async () => await LoadAllPokemon());
         }
 
-        public async Task TestLoadPokemonList()
+        public async Task LoadAllPokemon()
         {
-            _fullPokemonList = await _service.GetPokemonListItemsAsync();
-            FilteredPokemonList = new ObservableCollection<PokemonListItem>(_fullPokemonList);
+            _fullPokemonList = await _service.GetAllPokemonAsync();
+            foreach (var p in _fullPokemonList)
+                FilteredPokemonList.Add(p);
             pokemonList.ItemsSource = FilteredPokemonList;
         }
 
@@ -61,7 +62,7 @@ namespace PokedexApp
 
         private async void pokemonList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.CurrentSelection.FirstOrDefault() is PokemonListItem item)
+            if (e.CurrentSelection.FirstOrDefault() is Pokemon item)
             {
                 try
                 {

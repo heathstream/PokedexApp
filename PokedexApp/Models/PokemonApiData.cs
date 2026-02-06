@@ -15,6 +15,7 @@ namespace PokedexApp.Models
         public Sprites sprites { get; set; }
         public List<Types> types { get; set; }
         public string flavor_text { get; set; }
+        public List<pokemon_stat> stats { get; set; }
 
     }
 
@@ -45,5 +46,18 @@ namespace PokedexApp.Models
     {
         public Type type { get; set; }
         public int slot { get; set; }
+    }
+
+    public class pokemon_stat
+    {
+        public int effort { get; set; }
+        public int base_stat { get; set; }
+        public stat stat { get; set; }
+    }
+
+    public class stat
+    {
+        public string name { get; set; }
+        public string url { get; set; }
     }
 }

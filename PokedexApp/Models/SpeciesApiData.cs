@@ -16,6 +16,7 @@ namespace PokedexApp.Models
     {
         public string flavor_text { get; set; }
         public language language { get; set; }
+        public version version { get; set; }
     }
 
     public class language
@@ -31,5 +32,10 @@ namespace PokedexApp.Models
     public class evolution_chain
     {
         public string url { get; set; }
+    }
+
+    public class version
+    {
+        public string name { get; set; }
     }
 }

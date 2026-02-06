@@ -14,9 +14,9 @@ namespace PokedexApp.Models
         public double Height { get; init; }
         public string Sprite { get; init; }
         public string Description { get; init; }
-        public List<Pokemon>? EvolutionChain { get; set; }
         public Color Color { get; set; }
         public string EvolutionChainUrl { get; set; }
+        public List<BaseStat> BaseStats { get; set; } = new();
 
         public Pokemon(PokemonApiData pData, SpeciesApiData sData)
         {
@@ -29,10 +29,16 @@ namespace PokedexApp.Models
             EvolutionChainUrl = sData.evolution_chain.url;
             Color = PokemonColors.FromString(sData.color.name);
             Description = sData.flavor_text_entries
-                .Last(t => t.language.name == "en")
+                .Last(t => t.language.name == "en" && t.version.name != "legends-arceus")
                 .flavor_text
                 .Replace('\n', ' ')
                 .Replace('\f', ' ');
+            BaseStats = pData.stats.Select(s => new BaseStat()
+            {
+                Number = s.base_stat,
+                Effort = s.effort,
+                Stat = Enum.Parse<PokemonStat>(s.stat.name.Replace("-", ""), true)
+            }).ToList();
         }
 
         public bool Equals(Pokemon? other)

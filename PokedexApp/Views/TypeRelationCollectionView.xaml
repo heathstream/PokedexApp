@@ -12,9 +12,9 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid RowDefinitions="*,5">
-                        <Border StrokeShape="RoundRectangle 20" Padding="15,3,15,5" WidthRequest="160">
+                        <Border StrokeShape="RoundRectangle 20" Padding="15,3,15,5" WidthRequest="140">
                             <Grid ColumnDefinitions="Auto,*">
-                                <Label Grid.Column="0" TextColor="Gray" Text="{Binding Key}" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center"/>
+                                <Label Grid.Column="0" TextColor="Gray" Text="{Binding Key}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"/>
                                 <Label Grid.Column="1" TextColor="Gray" Text="{Binding Value, StringFormat='{0:F2}'}" FontSize="Body" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="End"/>
                             </Grid>
                         </Border>

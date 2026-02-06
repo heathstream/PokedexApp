@@ -17,48 +17,28 @@
     <Grid>
         <ScrollView>
 
-            <Grid RowSpacing="15">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="500"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <Grid RowSpacing="10" RowDefinitions="110,Auto,*" Padding="40">
 
                 <!--ENTRY BOX & SEARCH BUTTON-->
-                <Grid Grid.Row="1" Grid.Column="1" Padding="0" ColumnSpacing="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" StrokeShape="RoundRectangle 30" StrokeThickness="0">
-                        <Entry TextColor="Black" BackgroundColor="White" TextChanged="Entry_TextChanged" ClearButtonVisibility="WhileEditing"/>
-                    </Border>
-                    <Border Grid.Column="1" StrokeShape="RoundRectangle 30" StrokeThickness="0">
-                        <Button TextColor="White" BackgroundColor="#60c480" Text="Search"  FontAttributes="Bold" HorizontalOptions="Fill"/>
-                    </Border>
-                </Grid>
+                <Border Grid.Row="0" StrokeShape="RoundRectangle 30" StrokeThickness="0" VerticalOptions="End">
+                    <Entry TextColor="Black" FontSize="Medium" BackgroundColor="White" TextChanged="Entry_TextChanged" ClearButtonVisibility="WhileEditing" HeightRequest="60"/>
+                </Border>
 
                 <!--SEARCH RESULTS LIST-->
-                <Border Grid.Row="2" Grid.Column="1" StrokeShape="RoundRectangle 5" StrokeThickness="0">
+                <Border Grid.Row="2" Grid.Column="1" StrokeShape="RoundRectangle 30" StrokeThickness="0">
                     <ScrollView>
                         <CollectionView x:Name="pokemonList" BackgroundColor="AntiqueWhite" SelectionMode="Single" ItemsSource="{Binding FilteredPokemonList}" SelectionChanged="pokemonList_SelectionChanged">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <BoxView Grid.Column="0" WidthRequest="40" HeightRequest="40" Margin="10,0,0,0"/>
-                                        <VerticalStackLayout Padding="10" Grid.Column="1">
-                                            <Label TextColor="Black" FontAttributes="Bold" Text="{Binding Name}" HorizontalOptions="Fill" FontSize="15"/>
-                                            <Label TextColor="Black" Text="{Binding Url}" HorizontalOptions="Fill"/>
-                                        </VerticalStackLayout>
+                                    <Grid ColumnDefinitions="Auto,*" Padding="10,5" ColumnSpacing="15">
+                                        <Image Grid.Column="0" Source="{Binding Sprite}" WidthRequest="50"/>
+                                        <Grid Grid.Column="1" RowDefinitions="Auto,Auto">
+                                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
+                                                <Label TextColor="Black" FontAttributes="Bold" Text="{Binding Name}" FontSize="Medium"/>
+                                                <Label TextColor="Gray" FontAttributes="Bold" Text="{Binding Id, StringFormat='#{0:000}'}" FontSize="Small" Grid.Column="1" VerticalOptions="Center"/>
+                                            </Grid>
+                                            <Label TextColor="Black" Text="{Binding Name}" Grid.Row="1"/>
+                                        </Grid>
                                     </Grid>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>

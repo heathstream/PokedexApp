@@ -22,13 +22,14 @@ namespace PokedexApp.Services
         {
             httpClient = new HttpClient();
             Task.Run(GetTypeRelationsAsync);
+        }
+
+        public async Task<List<Pokemon>> GetAllPokemonAsync()
+        {
+            var pokemon = new List<Pokemon>();
             for (int i = 1; i <= NO_OF_POKEMON; i++)
-            {
-                var t = Task.Run(() => GetPokemonAsync(i.ToString()));
-                t.Wait();
-            }
-            var pokemon = Task.Run(() => GetPokemonAsync("pikachu")).Result;
-            var evolutionChain = Task.Run(() => GetEvolutionChainAsync(pokemon)).Result;
+                pokemon.Add(await GetPokemonAsync(i.ToString()));
+            return pokemon;
         }
 
         public async Task<Pokemon> GetPokemonAsync(string name)
