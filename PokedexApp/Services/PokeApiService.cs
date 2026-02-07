@@ -10,7 +10,7 @@ namespace PokedexApp.Services
 {
     internal class PokeApiService
     {
-        const int NO_OF_POKEMON = 151;
+        const int NO_OF_POKEMON = 20;
 
         HttpClient httpClient;
 

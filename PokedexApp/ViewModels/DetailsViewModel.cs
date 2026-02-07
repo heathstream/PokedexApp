@@ -1,10 +1,18 @@
 ﻿using PokedexApp.Models;
 using System.ComponentModel;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace PokedexApp.Views
+namespace PokedexApp.ViewModels
 {
-    public partial class DetailsPage : ContentPage, INotifyPropertyChanged
+    public class DetailsViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        public Pokemon Pokemon;
         public string StrengthsString { get; } = "Strengths:";
         public string WeaknessesString { get; } = "Weaknesses:";
         public string ImmunitiesString { get; } = "Immune to:";
@@ -38,14 +46,9 @@ namespace PokedexApp.Views
                 OnPropertyChanged(nameof(Immunities));
             }
         }
-        public DetailsPage()
+        public DetailsViewModel(Pokemon pokemon)
         {
-            InitializeComponent();
-        }
-        public DetailsPage(Pokemon pokemon) : this()
-        {
-            BindingContext = pokemon;
-
+            Pokemon = pokemon;
             Strengths = TypeRelations.GetStrengths(pokemon);
             Weaknesses = TypeRelations.GetWeaknesses(pokemon);
             Immunities = TypeRelations.GetImmunities(pokemon);

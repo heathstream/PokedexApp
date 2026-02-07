@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:PokedexApp.Views"
              x:Class="PokedexApp.MainPage"
-             HeightRequest="2000"
              x:Name="contentPage">
 
     <ContentPage.Background>
@@ -25,25 +24,34 @@
                 </Border>
 
                 <!--SEARCH RESULTS LIST-->
-                <Border Grid.Row="2" Grid.Column="1" StrokeShape="RoundRectangle 30" StrokeThickness="0">
-                    <ScrollView>
-                        <CollectionView x:Name="pokemonList" BackgroundColor="AntiqueWhite" SelectionMode="Single" ItemsSource="{Binding FilteredPokemonList}" SelectionChanged="pokemonList_SelectionChanged">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid ColumnDefinitions="Auto,*" Padding="10,5" ColumnSpacing="15">
-                                        <Image Grid.Column="0" Source="{Binding Sprite}" WidthRequest="50"/>
-                                        <Grid Grid.Column="1" RowDefinitions="Auto,Auto">
-                                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
-                                                <Label TextColor="Black" FontAttributes="Bold" Text="{Binding Name}" FontSize="Medium"/>
-                                                <Label TextColor="Gray" FontAttributes="Bold" Text="{Binding Id, StringFormat='#{0:000}'}" FontSize="Small" Grid.Column="1" VerticalOptions="Center"/>
-                                            </Grid>
-                                            <Label TextColor="Black" Text="{Binding Name}" Grid.Row="1"/>
+                <Border Grid.Row="2" StrokeShape="RoundRectangle 30" StrokeThickness="0">
+                    <CollectionView x:Name="pokemonList" BackgroundColor="AntiqueWhite" SelectionMode="Single" ItemsSource="{Binding FilteredPokemonList}" SelectionChanged="pokemonList_SelectionChanged">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="Auto,*" Padding="10,5" ColumnSpacing="15" HeightRequest="80">
+                                    <BoxView BackgroundColor="Aqua" Grid.Column="0" WidthRequest="50" HeightRequest="50" VerticalOptions="Center"/>
+                                    <!--<Image Grid.Column="0" Source="{Binding Sprite}" WidthRequest="50"/>-->
+                                    <Grid Grid.Column="1" RowDefinitions="Auto,Auto" RowSpacing="5">
+                                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
+                                            <Label TextColor="Black" FontAttributes="Bold" Text="{Binding Name}" FontSize="Medium"/>
+                                            <Label TextColor="Gray" FontAttributes="Bold" Text="{Binding Id, StringFormat='#{0:000}'}" FontSize="Small" Grid.Column="1" VerticalOptions="Center"/>
+                                        </Grid>
+                                        <Grid Grid.Row="1" RowDefinitions="Auto">
+                                            <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Types}" Spacing="5">
+                                                <BindableLayout.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border StrokeShape="RoundRectangle 20" Padding="10,0,10,2">
+                                                            <Label TextColor="Gray" Text="{Binding .}" FontSize="Body" FontAttributes="Bold" VerticalOptions="Center"/>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </BindableLayout.ItemTemplate>
+                                            </HorizontalStackLayout>
                                         </Grid>
                                     </Grid>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </ScrollView>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </Border>
             </Grid>
 
