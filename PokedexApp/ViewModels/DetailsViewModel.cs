@@ -8,11 +8,13 @@ namespace PokedexApp.ViewModels
 {
     public class DetailsViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        // OnPropertyChanged implementation
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        public Pokemon Pokemon;
+        // Pokemon information
+        public Pokemon Pokemon { get; set; }
         public string StrengthsString { get; } = "Strengths:";
         public string WeaknessesString { get; } = "Weaknesses:";
         public string ImmunitiesString { get; } = "Immune to:";
@@ -21,7 +23,7 @@ namespace PokedexApp.ViewModels
         Dictionary<PokemonType, double> _immunities;
         public Dictionary<PokemonType, double> Strengths
         {
-            get { return _strengths; }
+            get => _strengths;
             set
             {
                 _strengths = value;
@@ -30,7 +32,7 @@ namespace PokedexApp.ViewModels
         }
         public Dictionary<PokemonType, double> Weaknesses
         {
-            get { return _weaknesses; }
+            get => _weaknesses;
             set
             {
                 _weaknesses = value;
@@ -39,7 +41,7 @@ namespace PokedexApp.ViewModels
         }
         public Dictionary<PokemonType, double> Immunities
         {
-            get { return _immunities; }
+            get => _immunities;
             set
             {
                 _immunities = value;

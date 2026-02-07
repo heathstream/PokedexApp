@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:PokedexApp.Views"
     mc:Ignorable="d"
-    BackgroundColor="{Binding Color}"
+    BackgroundColor="{Binding Pokemon.Color}"
     x:Name="contentPage">
 
     <!--<ContentPage.Background>
@@ -27,19 +27,19 @@
                 <Grid RowDefinitions="350, *">
 
                     <!--TOP SPRITE VIEW-->
-                    <Image WidthRequest="300" HeightRequest="300" Source="{Binding Sprite}" Grid.Row="0" TranslationY="30"/>
+                    <Image WidthRequest="300" HeightRequest="300" Source="{Binding Pokemon.Sprite}" Grid.Row="0" TranslationY="30"/>
 
                     <Border StrokeShape="RoundRectangle 80,80,0,0" StrokeThickness="0" Grid.Row="1">
                         <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="25" Padding="50,20" Grid.Row="1" BackgroundColor="White">
 
                             <!--NAME LABEL-->
                             <HorizontalStackLayout Grid.Row="0" Spacing="5" HorizontalOptions="Center">
-                                <Label TextColor="Black" FontSize="35" FontAttributes="Bold" Text="{Binding Name}" HorizontalOptions="Center" x:Name="NameLabel"/>
-                                <Label TextColor="Gray" FontSize="35" Text="{Binding Id, StringFormat='#{0:000}'}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                                <Label TextColor="Black" FontSize="35" FontAttributes="Bold" Text="{Binding Pokemon.Name}" HorizontalOptions="Center" x:Name="NameLabel"/>
+                                <Label TextColor="Gray" FontSize="35" Text="{Binding Pokemon.Id, StringFormat='#{0:000}'}" HorizontalOptions="Start" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
 
                             <!--TYPES-->
-                            <CollectionView Grid.Row="1" HorizontalOptions="Center" ItemsSource="{Binding Types}">
+                            <CollectionView Grid.Row="1" HorizontalOptions="Center" ItemsSource="{Binding Pokemon.Types}">
                                 <CollectionView.ItemsLayout>
                                     <LinearItemsLayout Orientation="Horizontal" ItemSpacing="12"/>
                                 </CollectionView.ItemsLayout>
@@ -53,7 +53,7 @@
                             </CollectionView>
 
                             <!--DESCRIPTION-->
-                            <Label TextColor="Black" Text="{Binding Description}" FontSize="Small" Grid.Row="2" HorizontalOptions="Center"/>
+                            <Label TextColor="Black" Text="{Binding Pokemon.Description}" FontSize="Small" Grid.Row="2" HorizontalOptions="Center"/>
 
                             <!--WEIGHT & HEIGHT-->
                             <Grid ColumnDefinitions="*, *" Grid.Row="3" ColumnSpacing="20">
@@ -61,19 +61,19 @@
                                 <VerticalStackLayout HorizontalOptions="Fill" Grid.Column="0" Spacing="5">
                                     <Label TextColor="Black" Text="Weight:" Margin="8,0"/>
                                     <Border StrokeShape="RoundRectangle 15" Padding="10" HorizontalOptions="Fill">
-                                        <Label TextColor="Black" Text="{Binding Weight, StringFormat='{0:F1} kg'}" FontSize="Medium" HorizontalOptions="Center"/>
+                                        <Label TextColor="Black" Text="{Binding Pokemon.Weight, StringFormat='{0:F1} kg'}" FontSize="Medium" HorizontalOptions="Center"/>
                                     </Border>
                                 </VerticalStackLayout>
                                 <VerticalStackLayout HorizontalOptions="Fill" Grid.Column="1" Spacing="5">
                                     <Label TextColor="Black" Text="Height:" Margin="8,0"/>
                                     <Border StrokeShape="RoundRectangle 15" Padding="10" HorizontalOptions="Fill">
-                                        <Label TextColor="Black" Text="{Binding Height, StringFormat='{0:F1} m'}" FontSize="Medium" HorizontalOptions="Center"/>
+                                        <Label TextColor="Black" Text="{Binding Pokemon.Height, StringFormat='{0:F1} m'}" FontSize="Medium" HorizontalOptions="Center"/>
                                     </Border>
                                 </VerticalStackLayout>
                             </Grid>
 
                             <!--STRENGTHS & WEAKNESSES-->
-                            <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10" Grid.Row="5" BindingContext="{x:Reference contentPage}">
+                            <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10" Grid.Row="5">
 
                                 <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="15">
                                     <Label FontSize="Small" TextColor="Black" Text="{Binding StrengthsString}" HorizontalOptions="Center"/>
@@ -95,7 +95,7 @@
                             <!--BASE STATS-->
                             <VerticalStackLayout Grid.Row="4" Spacing="10">
                                 <Label TextColor="Black" Text="Base Stats:" FontSize="Small" HorizontalOptions="Center"/>
-                                <CollectionView ItemsSource="{Binding BaseStats}">
+                                <CollectionView ItemsSource="{Binding Pokemon.BaseStats}">
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
                                             <Grid ColumnDefinitions="80,40,*" ColumnSpacing="20">
