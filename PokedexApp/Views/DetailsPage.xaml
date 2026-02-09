@@ -76,17 +76,17 @@
                             <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10" Grid.Row="5">
 
                                 <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="15">
-                                    <Label FontSize="Small" TextColor="Black" Text="{Binding StrengthsString}" HorizontalOptions="Center"/>
+                                    <Label FontSize="Small" TextColor="Black" Text="Strengths:" HorizontalOptions="Center"/>
                                     <local:TypeRelationCollectionView BindingContext="{Binding Strengths}"/>
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="15">
-                                    <Label FontSize="Small" TextColor="Black" Text="{Binding WeaknessesString}" HorizontalOptions="Center"/>
+                                    <Label FontSize="Small" TextColor="Black" Text="Weaknesses:" HorizontalOptions="Center"/>
                                     <local:TypeRelationCollectionView BindingContext="{Binding Weaknesses}"/>
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="15">
-                                    <Label FontSize="Small" TextColor="Black" Text="{Binding ImmunitiesString}" HorizontalOptions="Center"/>
+                                    <Label FontSize="Small" TextColor="Black" Text="Immune to:" HorizontalOptions="Center"/>
                                     <local:TypeRelationCollectionView BindingContext="{Binding Immunities}"/>
                                 </VerticalStackLayout>
 

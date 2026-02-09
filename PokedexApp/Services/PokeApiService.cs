@@ -15,7 +15,7 @@ namespace PokedexApp.Services
         HttpClient httpClient;
 
         Dictionary<string, Pokemon> _pokemonCache = new();
-        List<PokemonListItem> _pkmnListItemCache = new();
+        //List<PokemonListItem> _pkmnListItemCache = new();
         Dictionary<string, EvolutionChain> _evolutionChainCache = new();
 
         public PokeApiService()
@@ -34,7 +34,7 @@ namespace PokedexApp.Services
 
         public async Task<Pokemon> GetPokemonAsync(string name)
         {
-            if (_pokemonCache.TryGetValue(name, out Pokemon? cachedPokemon))
+            if (_pokemonCache.TryGetValue(name.ToLower(), out Pokemon? cachedPokemon))
                 return cachedPokemon;
 
             var uri = $"https://pokeapi.co/api/v2/pokemon/{name}";
@@ -48,19 +48,19 @@ namespace PokedexApp.Services
             return pokemon;
         }
 
-        public async Task<List<PokemonListItem>> GetPokemonListItemsAsync()
-        {
-            if (_pkmnListItemCache.Any())
-                return _pkmnListItemCache;
+        //public async Task<List<PokemonListItem>> GetPokemonListItemsAsync()
+        //{
+        //    if (_pkmnListItemCache.Any())
+        //        return _pkmnListItemCache;
 
-            var uri = $"https://pokeapi.co/api/v2/pokemon?limit={NO_OF_POKEMON}";
+        //    var uri = $"https://pokeapi.co/api/v2/pokemon?limit={NO_OF_POKEMON}";
 
-            PokemonListResponse? response = await httpClient.GetFromJsonAsync<PokemonListResponse>(uri);
+        //    PokemonListResponse? response = await httpClient.GetFromJsonAsync<PokemonListResponse>(uri);
 
-            var listItems = response.Results;
-            _pkmnListItemCache.AddRange(listItems);
-            return listItems;
-        }
+        //    var listItems = response.Results;
+        //    _pkmnListItemCache.AddRange(listItems);
+        //    return listItems;
+        //}
 
         public async Task GetTypeRelationsAsync()
         {
@@ -70,12 +70,14 @@ namespace PokedexApp.Services
                 TypeApiData? typeApiData = await httpClient.GetFromJsonAsync<TypeApiData>(uri);
 
                 foreach (var other in typeApiData.damage_relations.double_damage_from)
-                    TypeRelations.Chart[type][Enum.Parse<PokemonType>(other.name, true)] = 2.0f;
+                    TypeRelations.Chart[type][ParseType(other.name)] = 2.0f;
                 foreach (var other in typeApiData.damage_relations.half_damage_from)
-                    TypeRelations.Chart[type][Enum.Parse<PokemonType>(other.name, true)] = 0.5f;
+                    TypeRelations.Chart[type][ParseType(other.name)] = 0.5f;
                 foreach (var other in typeApiData.damage_relations.no_damage_from)
-                    TypeRelations.Chart[type][Enum.Parse<PokemonType>(other.name, true)] = 0.0f;
+                    TypeRelations.Chart[type][ParseType(other.name)] = 0.0f;
             }
+
+            PokemonType ParseType(string typeName) => Enum.Parse<PokemonType>(typeName, true);
         }
 
         public async Task<EvolutionChain> GetEvolutionChainAsync(Pokemon pokemon)
