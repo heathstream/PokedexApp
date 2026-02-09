@@ -3,18 +3,30 @@ using System.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using PokedexApp.Services;
 
 namespace PokedexApp.ViewModels
 {
     public class DetailsViewModel : INotifyPropertyChanged
     {
+        PokeApiService _service;
+
         // OnPropertyChanged implementation
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         // Pokemon information
-        public Pokemon Pokemon { get; set; }
+        Pokemon _pokemon;
+        public Pokemon Pokemon
+        {
+            get => _pokemon;
+            set
+            {
+                _pokemon = value;
+                OnPropertyChanged(nameof(Pokemon));
+            }
+        }
         public string StrengthsString { get; } = "Strengths:";
         public string WeaknessesString { get; } = "Weaknesses:";
         public string ImmunitiesString { get; } = "Immune to:";
@@ -48,12 +60,18 @@ namespace PokedexApp.ViewModels
                 OnPropertyChanged(nameof(Immunities));
             }
         }
-        public DetailsViewModel(Pokemon pokemon)
+        public DetailsViewModel(string pokemonName, PokeApiService service)
         {
-            Pokemon = pokemon;
-            Strengths = TypeRelations.GetStrengths(pokemon);
-            Weaknesses = TypeRelations.GetWeaknesses(pokemon);
-            Immunities = TypeRelations.GetImmunities(pokemon);
+            _service = service;
+            LoadAsync(pokemonName);
+        }
+
+        public async Task LoadAsync(string pokemonName)
+        {
+            Pokemon = await _service.GetPokemonAsync(pokemonName);
+            Strengths = await TypeRelations.GetStrengths(Pokemon);
+            Weaknesses = await TypeRelations.GetWeaknesses(Pokemon);
+            Immunities = await TypeRelations.GetImmunities(Pokemon);
         }
     }
 }

@@ -49,10 +49,13 @@ namespace PokedexApp
                 await Task.Delay(250, _filterCts.Token);
                 var text = e.NewTextValue?.Trim() ?? string.Empty;
                 
-                var filteredPokemon = string.IsNullOrEmpty(text) ?
-                    _fullPokemonList :
-                    _fullPokemonList.Where(p => p.Name.Contains(text));
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    FilteredPokemonList.Clear();
+                    return;
+                }
 
+                var filteredPokemon = _fullPokemonList.Where(p => p.Name.Contains(text));
                 FilteredPokemonList.Clear();
                 foreach (var p in filteredPokemon)
                     FilteredPokemonList.Add(p);
@@ -66,8 +69,9 @@ namespace PokedexApp
             {
                 try
                 {
-                    var pokemon = await _service.GetPokemonAsync(item.Name);
-                    await Navigation.PushAsync(new DetailsPage(pokemon));
+                    //var pokemon = await _service.GetPokemonAsync(item.Name);
+                    //await Navigation.PushAsync(new DetailsPage(pokemon));
+                    await Navigation.PushAsync(new DetailsPage(item.Name, _service));
                 }
                 catch (Exception ex)
                 {

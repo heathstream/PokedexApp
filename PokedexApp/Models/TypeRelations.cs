@@ -28,22 +28,22 @@ namespace PokedexApp.Models
             [PokemonType.Fairy] = new() { }
         };
 
-        public static Dictionary<PokemonType, double> GetWeaknesses(Pokemon pokemon) => 
-            GetDamageMultipliers(pokemon, dm => dm > 1);
+        public static async Task<Dictionary<PokemonType, double>> GetWeaknesses(Pokemon pokemon) => 
+            await GetDamageMultipliers(pokemon, dm => dm > 1);
 
-        public static Dictionary<PokemonType, double> GetStrengths(Pokemon pokemon) => 
-            GetDamageMultipliers(pokemon, dm => dm < 1 && dm > 0);
+        public static async Task<Dictionary<PokemonType, double>> GetStrengths(Pokemon pokemon) => 
+            await GetDamageMultipliers(pokemon, dm => dm < 1 && dm > 0);
 
-        public static Dictionary<PokemonType, double> GetImmunities(Pokemon pokemon) =>
-            GetDamageMultipliers(pokemon, dm => dm == 0);
+        public static async Task<Dictionary<PokemonType, double>> GetImmunities(Pokemon pokemon) =>
+            await GetDamageMultipliers(pokemon, dm => dm == 0);
 
-        private static Dictionary<PokemonType, double> GetDamageMultipliers(Pokemon pokemon, Predicate<double> predicate)
+        private static async Task<Dictionary<PokemonType, double>> GetDamageMultipliers(Pokemon pokemon, Predicate<double> predicate)
         {
             Dictionary<PokemonType, double> results = new();
             var typeChart = Chart[pokemon.Types[0]];
 
             if (pokemon.Types.Count > 1)
-                typeChart = CombineTypeCharts(pokemon);
+                typeChart = await CombineTypeCharts(pokemon);
 
             foreach (var type in typeChart)
             {
@@ -54,7 +54,7 @@ namespace PokedexApp.Models
             return results.OrderByDescending(t => t.Value).ToDictionary();
         }
 
-        private static Dictionary<PokemonType, double> CombineTypeCharts(Pokemon pokemon)
+        private static async Task<Dictionary<PokemonType, double>> CombineTypeCharts(Pokemon pokemon)
         {
             (var t1, var t2) = (pokemon.Types[0], pokemon.Types[1]);
 

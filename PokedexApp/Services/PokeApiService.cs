@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace PokedexApp.Services
 {
-    internal class PokeApiService
+    public class PokeApiService
     {
         const int NO_OF_POKEMON = 20;
 
