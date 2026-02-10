@@ -10,13 +10,13 @@ namespace PokedexApp.Services
 {
     public class PokeApiService
     {
-        const int NO_OF_POKEMON = 20;
+        const int NO_OF_POKEMON = 151;
 
         HttpClient httpClient;
 
         Dictionary<string, Pokemon> _pokemonCache = new();
-        //List<PokemonListItem> _pkmnListItemCache = new();
         Dictionary<string, EvolutionChain> _evolutionChainCache = new();
+        List<PokemonListItem> _pkmnListItemCache = new();
 
         public PokeApiService()
         {
@@ -37,30 +37,40 @@ namespace PokedexApp.Services
             if (_pokemonCache.TryGetValue(name.ToLower(), out Pokemon? cachedPokemon))
                 return cachedPokemon;
 
+            // Load Pokemon data from the Pokemon and Species endpoints
             var uri = $"https://pokeapi.co/api/v2/pokemon/{name}";
             PokemonApiData? pokemonApiData = await httpClient.GetFromJsonAsync<PokemonApiData>(uri);
             uri = $"https://pokeapi.co/api/v2/pokemon-species/{name}";
             SpeciesApiData? speciesApiData = await httpClient.GetFromJsonAsync<SpeciesApiData>(uri);
 
+            // Create the Pokemon object and cache it for next time
             var pokemon = new Pokemon(pokemonApiData, speciesApiData);
             _pokemonCache[pokemon.Name.ToLower()] = pokemon;
+
+            // Update the Pokemon's list item with additional info
+            var cachedListItem = _pkmnListItemCache.Find(p => p.Name == pokemon.Name);
+            if (cachedListItem != null)
+            {
+                cachedListItem.Id = pokemon.Id;
+                cachedListItem.Types = pokemon.Types;
+            }    
 
             return pokemon;
         }
 
-        //public async Task<List<PokemonListItem>> GetPokemonListItemsAsync()
-        //{
-        //    if (_pkmnListItemCache.Any())
-        //        return _pkmnListItemCache;
+        public async Task<List<PokemonListItem>> GetPokemonListItemsAsync()
+        {
+            if (_pkmnListItemCache.Any())
+                return _pkmnListItemCache;
 
-        //    var uri = $"https://pokeapi.co/api/v2/pokemon?limit={NO_OF_POKEMON}";
+            var uri = $"https://pokeapi.co/api/v2/pokemon?limit={NO_OF_POKEMON}";
 
-        //    PokemonListResponse? response = await httpClient.GetFromJsonAsync<PokemonListResponse>(uri);
+            PokemonListResponse? response = await httpClient.GetFromJsonAsync<PokemonListResponse>(uri);
 
-        //    var listItems = response.Results;
-        //    _pkmnListItemCache.AddRange(listItems);
-        //    return listItems;
-        //}
+            var listItems = response.Results;
+            _pkmnListItemCache.AddRange(listItems);
+            return listItems;
+        }
 
         public async Task GetTypeRelationsAsync()
         {

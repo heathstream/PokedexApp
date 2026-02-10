@@ -12,7 +12,7 @@ namespace PokedexApp.ViewModels
     {
         PokeApiService _service;
 
-        // Pokemon properties
+        // POKEMON PROPERTIES
         [ObservableProperty]
         Pokemon _pokemon;
 
