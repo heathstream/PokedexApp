@@ -23,15 +23,15 @@ namespace PokedexApp
         {
             base.OnAppearing();
 
-            //if (_fullPokemonList.Any()) return;
-            Task.Run(() => LoadPokemonListItems());
+            if (!_fullPokemonList.Any())
+                Task.Run(() => LoadPokemonListItems());
         }
 
         public async Task LoadPokemonListItems()
         {
             _fullPokemonList = await _service.GetPokemonListItemsAsync();
-            foreach (var p in _fullPokemonList)
-                FilteredPokemonList.Add(p);
+            //foreach (var p in _fullPokemonList)
+            //    FilteredPokemonList.Add(p);
         }
 
         //public async Task LoadAllPokemon()
@@ -62,7 +62,7 @@ namespace PokedexApp
                     return;
                 }
 
-                var filteredPokemon = _fullPokemonList.Where(p => p.Name.Contains(text));
+                var filteredPokemon = _fullPokemonList.Where(p => p.Name.ToLower().Contains(text.ToLower()));
                 FilteredPokemonList.Clear();
                 foreach (var p in filteredPokemon)
                     FilteredPokemonList.Add(p);

@@ -13,6 +13,8 @@ namespace PokedexApp.Models
         List<PokemonType>? _types;
         int? _id;
 
+        public string Icon => (Types != null) ? TypeIcons.GetIcon(Types[0]) : TypeIcons.Default;
+
         public List<PokemonType>? Types
         { 
             get => _types;
@@ -20,6 +22,7 @@ namespace PokedexApp.Models
             {
                 _types = value;
                 OnPropertyChanged(nameof(Types));
+                OnPropertyChanged(nameof(Icon));
             }
         }
         public int? Id

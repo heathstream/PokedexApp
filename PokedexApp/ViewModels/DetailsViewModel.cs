@@ -25,6 +25,12 @@ namespace PokedexApp.ViewModels
         [ObservableProperty]
         Dictionary<PokemonType, double> _immunities;
 
+        [ObservableProperty]
+        List<Pokemon> _evolvesFrom;
+
+        [ObservableProperty]
+        List<Pokemon> _evolvesTo;
+
         public DetailsViewModel(string pokemonName, PokeApiService service)
         {
             _service = service;
@@ -37,6 +43,10 @@ namespace PokedexApp.ViewModels
             Strengths = await TypeRelations.GetStrengths(Pokemon);
             Weaknesses = await TypeRelations.GetWeaknesses(Pokemon);
             Immunities = await TypeRelations.GetImmunities(Pokemon);
+
+            var evolutionChain = await _service.GetEvolutionChainAsync(Pokemon);
+            EvolvesFrom = await evolutionChain.GetEvolvesFrom(Pokemon);
+            EvolvesTo = await evolutionChain.GetEvolvesTo(Pokemon);
         }
     }
 }

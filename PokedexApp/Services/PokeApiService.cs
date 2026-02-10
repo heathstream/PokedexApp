@@ -10,7 +10,7 @@ namespace PokedexApp.Services
 {
     public class PokeApiService
     {
-        const int NO_OF_POKEMON = 151;
+        const int NO_OF_POKEMON = 1000;
 
         HttpClient httpClient;
 
@@ -92,7 +92,7 @@ namespace PokedexApp.Services
 
         public async Task<EvolutionChain> GetEvolutionChainAsync(Pokemon pokemon)
         {
-            if (_evolutionChainCache.TryGetValue(pokemon.Name.ToLower(), out EvolutionChain? cached))
+            if (_evolutionChainCache.TryGetValue(pokemon.EvolutionChainUrl, out EvolutionChain? cached))
                 return cached;
 
             var uri = pokemon.EvolutionChainUrl;

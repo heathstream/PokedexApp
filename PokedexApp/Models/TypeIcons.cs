@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using PokedexApp;
 
 namespace PokedexApp.Models
 {
@@ -27,7 +28,7 @@ namespace PokedexApp.Models
             [PokemonType.Dark] = "typeicon_dark.png",
             [PokemonType.Fairy] = "typeicon_fairy.png"
         };
-
+        public static string Default => _iconPaths[PokemonType.Normal];
         public static string GetIcon(PokemonType type) => _iconPaths[type];
     }
 }

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:PokedexApp.Views"
+             xmlns:pokedexapp="clr-namespace:PokedexApp"
              x:Class="PokedexApp.MainPage"
              x:Name="contentPage">
 
@@ -16,21 +17,21 @@
     <Grid>
         <ScrollView>
 
-            <Grid RowSpacing="10" RowDefinitions="110,Auto,*" Padding="40">
+            <Grid RowSpacing="10" RowDefinitions="40,Auto,Auto,*" Padding="40">
 
                 <!--ENTRY BOX & SEARCH BUTTON-->
-                <Border Grid.Row="0" StrokeShape="RoundRectangle 30" StrokeThickness="0" VerticalOptions="End">
+                <Border Grid.Row="1" StrokeShape="RoundRectangle 30" StrokeThickness="0" VerticalOptions="End">
                     <Entry TextColor="Black" FontSize="Medium" BackgroundColor="White" TextChanged="Entry_TextChanged" ClearButtonVisibility="WhileEditing" HeightRequest="60"/>
                 </Border>
 
                 <!--SEARCH RESULTS LIST-->
                 <Border Grid.Row="2" StrokeShape="RoundRectangle 30" StrokeThickness="0">
-                    <CollectionView x:Name="pokemonList" BackgroundColor="AntiqueWhite" SelectionMode="Single" ItemsSource="{Binding FilteredPokemonList}" SelectionChanged="pokemonList_SelectionChanged">
+                    <CollectionView x:Name="pokemonList" BackgroundColor="AntiqueWhite" SelectionMode="Single" ItemsSource="{Binding FilteredPokemonList}" SelectionChanged="pokemonList_SelectionChanged" MaximumHeightRequest="800">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Grid ColumnDefinitions="Auto,*" Padding="10,5" ColumnSpacing="15" HeightRequest="80">
-                                    <BoxView BackgroundColor="Aqua" Grid.Column="0" WidthRequest="50" HeightRequest="50" VerticalOptions="Center"/>
-                                    <!--<Image Grid.Column="0" Source="{Binding Sprite}" WidthRequest="50"/>-->
+                                    <!--<BoxView BackgroundColor="Aqua" Grid.Column="0" WidthRequest="50" HeightRequest="50" VerticalOptions="Center"/>-->
+                                    <Image Grid.Column="0" Source="{Binding Icon}" WidthRequest="50" Aspect="AspectFit"/>
                                     <Grid Grid.Column="1" RowDefinitions="Auto,Auto" RowSpacing="5">
                                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
                                             <Label TextColor="Black" FontAttributes="Bold" Text="{Binding Name}" FontSize="Medium"/>
