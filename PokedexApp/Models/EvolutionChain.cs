@@ -21,7 +21,12 @@ namespace PokedexApp.Models
                 evolvesFrom.Add(cl.Pokemon);
 
                 if (cl.EvolvesTo != null && cl.EvolvesTo.Any())
+                {
+                    if (cl.EvolvesTo.Any(cl => cl.Pokemon == pokemon))
+                        return;
                     ProcessLink(cl.EvolvesTo.First());
+                }
+                
             }
         }
         public async Task<List<Pokemon>> GetEvolvesTo(Pokemon pokemon)

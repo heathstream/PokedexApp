@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/dotnet/maui/global/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:PokedexApp.Views"
+    xmlns:models="clr-namespace:PokedexApp.Models"
     mc:Ignorable="d"
     BackgroundColor="{Binding Pokemon.Color}"
     x:Name="contentPage">
@@ -27,7 +28,7 @@
                 <Grid RowDefinitions="400, *">
 
                     <!--TOP SPRITE VIEW-->
-                    <Image WidthRequest="400" ScaleX="1.2" ScaleY="0.25" Source="blobshadow.png" Grid.Row="0" TranslationY="150" Opacity="0.4"/>
+                    <Image WidthRequest="400" ScaleX="1.5" ScaleY="0.3" Source="blobshadow.png" Grid.Row="0" TranslationY="150" Opacity="0.3"/>
                     <Image WidthRequest="300" HeightRequest="300" Source="{Binding Pokemon.Sprite}" Grid.Row="0" TranslationY="30"/>
 
                     <Border StrokeShape="RoundRectangle 120,120,0,0" StrokeThickness="0" Grid.Row="1">
@@ -46,8 +47,8 @@
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <Border StrokeShape="RoundRectangle 20" Padding="15,1,15,0">
-                                            <Label TextColor="Gray" Text="{Binding .}" FontSize="Medium" FontAttributes="Bold"/>
+                                        <Border StrokeShape="RoundRectangle 20" Padding="15,1,15,0" BackgroundColor="{Binding ., Converter={StaticResource TypeColorConverter}}">
+                                            <Label TextColor="White" Text="{Binding .}" FontSize="Medium" FontAttributes="Bold"/>
                                         </Border>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
@@ -86,7 +87,7 @@
                                                        Text="{Binding Number}" HorizontalOptions="End" VerticalOptions="Center"/>
                                                 <ProgressBar ProgressColor="#DDDDDD" BackgroundColor="Transparent" ScaleY="6" 
                                                              Grid.Column="2" Progress="1"/>
-                                                <ProgressBar ProgressColor="OrangeRed" BackgroundColor="Transparent" ScaleY="3" 
+                                                <ProgressBar ProgressColor="{Binding Number, Converter={StaticResource BaseStatColorConverter}}" BackgroundColor="Transparent" ScaleY="3" 
                                                              Grid.Column="2" Progress="{Binding NumberNormalized}"/>
                                             </Grid>
                                         </DataTemplate>
@@ -156,4 +157,13 @@
 
         </Grid>
     </ContentPage.Content>
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <models:TypeColorConverter x:Key="TypeColorConverter"/>
+            <models:BaseStatColorConverter x:Key="BaseStatColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
 </ContentPage>

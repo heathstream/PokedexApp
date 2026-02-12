@@ -10,6 +10,8 @@ namespace PokedexApp.Models
         public int Id { get; init; }
         public string Name { get; init; }
         public List<PokemonType> Types { get; init; }
+        public PokemonType FirstType => Types[0];
+        public PokemonType? SecondType => (Types.Count > 1) ? Types[1] : null;
         public double Weight { get; init; }
         public double Height { get; init; }
         public string Sprite { get; init; }

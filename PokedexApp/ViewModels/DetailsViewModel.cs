@@ -31,6 +31,8 @@ namespace PokedexApp.ViewModels
         [ObservableProperty]
         List<Pokemon> _evolvesTo;
 
+        public bool HasTwoTypes => (Pokemon.Types.Count == 2);
+
         public DetailsViewModel(string pokemonName, PokeApiService service)
         {
             _service = service;

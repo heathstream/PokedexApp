@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:PokedexApp.Views"
              xmlns:pokedexapp="clr-namespace:PokedexApp"
+             xmlns:models="clr-namespace:PokedexApp.Models"
              x:Class="PokedexApp.MainPage"
              x:Name="contentPage">
 
@@ -31,7 +32,11 @@
                             <DataTemplate>
                                 <Grid ColumnDefinitions="Auto,*" Padding="10,5" ColumnSpacing="15" HeightRequest="80">
                                     <!--<BoxView BackgroundColor="Aqua" Grid.Column="0" WidthRequest="50" HeightRequest="50" VerticalOptions="Center"/>-->
-                                    <Image Grid.Column="0" Source="{Binding Icon}" WidthRequest="50" Aspect="AspectFit"/>
+                                    <Image Grid.Column="0" Source="{Binding Icon}" WidthRequest="50" Aspect="AspectFit" IsVisible="{Binding HasOneType}"/>
+                                    <Grid RowDefinitions="50" ColumnDefinitions="50" IsVisible="{Binding HasTwoTypes}" VerticalOptions="Center">
+                                        <Image Source="{Binding Icon2}" WidthRequest="35" Aspect="AspectFit" HorizontalOptions="End" VerticalOptions="End"/>
+                                        <Image Source="{Binding Icon}" WidthRequest="35" Aspect="AspectFit" HorizontalOptions="Start" VerticalOptions="Start"/>
+                                    </Grid>
                                     <Grid Grid.Column="1" RowDefinitions="Auto,Auto" RowSpacing="5">
                                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
                                             <Label TextColor="Black" FontAttributes="Bold" Text="{Binding Name}" FontSize="Medium"/>
@@ -41,8 +46,8 @@
                                             <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Types}" Spacing="5">
                                                 <BindableLayout.ItemTemplate>
                                                     <DataTemplate>
-                                                        <Border StrokeShape="RoundRectangle 20" Padding="10,0,10,2">
-                                                            <Label TextColor="Gray" Text="{Binding .}" FontSize="Body" FontAttributes="Bold" VerticalOptions="Center"/>
+                                                        <Border StrokeShape="RoundRectangle 20" Padding="10,0,10,2" BackgroundColor="{Binding ., Converter={StaticResource TypeColorConverter}}">
+                                                            <Label TextColor="White" Text="{Binding .}" FontSize="Body" FontAttributes="Bold" VerticalOptions="Center"/>
                                                         </Border>
                                                     </DataTemplate>
                                                 </BindableLayout.ItemTemplate>
@@ -61,5 +66,11 @@
         <views:PokedexFrameView ScaleX="-1" />
 
     </Grid>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <models:TypeColorConverter x:Key="TypeColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
 </ContentPage>

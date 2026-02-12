@@ -13,7 +13,7 @@ namespace PokedexApp.Models
         public double weight { get; set; }
         public double height { get; set; }
         public Sprites sprites { get; set; }
-        public List<Types> types { get; set; }
+        public List<types> types { get; set; }
         public string flavor_text { get; set; }
         public List<pokemon_stat> stats { get; set; }
 
@@ -36,15 +36,15 @@ namespace PokedexApp.Models
     }
 
     // TYPE
-    public class Type
-    {
-        public string name { get; set; }
-        public string url { get; set; }
-    }
+    //public class type
+    //{
+    //    public string name { get; set; }
+    //    public string url { get; set; }
+    //}
 
-    public class Types
+    public class types
     {
-        public Type type { get; set; }
+        public type type { get; set; }
         public int slot { get; set; }
     }
 
