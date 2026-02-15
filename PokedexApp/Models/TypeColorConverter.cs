@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 
 namespace PokedexApp.Models
 {
@@ -30,10 +31,10 @@ namespace PokedexApp.Models
             [PokemonType.Fairy] = Color.FromArgb("ef70ef")
         };
 
-        public object? Convert(object? value, System.Type targetType, object? parameter, CultureInfo culture) =>
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
             (value is PokemonType type && _colors.TryGetValue(type, out var color)) ? color : Colors.HotPink;
 
-        public object? ConvertBack(object? value, System.Type targetType, object? parameter, CultureInfo culture) =>
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
             throw new NotImplementedException();
     }
 }

@@ -16,6 +16,8 @@
 
 
     <Grid>
+        
+        
         <ScrollView>
 
             <Grid RowSpacing="10" RowDefinitions="40,Auto,Auto,*" Padding="40">
@@ -40,7 +42,7 @@
                                     <Grid Grid.Column="1" RowDefinitions="Auto,Auto" RowSpacing="5">
                                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
                                             <Label TextColor="Black" FontAttributes="Bold" Text="{Binding Name}" FontSize="Medium"/>
-                                            <Label TextColor="Gray" FontAttributes="Bold" Text="{Binding Id, StringFormat='#{0:000}'}" FontSize="Small" Grid.Column="1" VerticalOptions="Center"/>
+                                            <Label TextColor="Gray" FontAttributes="Bold" Text="{Binding Id, StringFormat='#{0:000}'}" IsVisible="{Binding HasId}" FontSize="Small" Grid.Column="1" VerticalOptions="Center"/>
                                         </Grid>
                                         <Grid Grid.Row="1" RowDefinitions="Auto">
                                             <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Types}" Spacing="5">

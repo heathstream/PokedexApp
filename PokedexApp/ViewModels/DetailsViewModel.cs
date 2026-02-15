@@ -12,24 +12,22 @@ namespace PokedexApp.ViewModels
     {
         PokeApiService _service;
 
+        // SKELETON LOADER BOOLS
+        [ObservableProperty] bool _isLoading = true;
+        [ObservableProperty] bool _isLoaded = false;
+
         // POKEMON PROPERTIES
-        [ObservableProperty]
-        Pokemon _pokemon;
+        [ObservableProperty] Pokemon _pokemon;
 
-        [ObservableProperty]
-        Dictionary<PokemonType, double> _strengths;
+        [ObservableProperty] Dictionary<PokemonType, double> _strengths;
 
-        [ObservableProperty]
-        Dictionary<PokemonType, double> _weaknesses;
+        [ObservableProperty] Dictionary<PokemonType, double> _weaknesses;
 
-        [ObservableProperty]
-        Dictionary<PokemonType, double> _immunities;
+        [ObservableProperty] Dictionary<PokemonType, double> _immunities;
 
-        [ObservableProperty]
-        List<Pokemon> _evolvesFrom;
+        [ObservableProperty] List<Pokemon> _evolvesFrom;
 
-        [ObservableProperty]
-        List<Pokemon> _evolvesTo;
+        [ObservableProperty] List<Pokemon> _evolvesTo;
 
         public bool HasTwoTypes => (Pokemon.Types.Count == 2);
 
@@ -49,6 +47,11 @@ namespace PokedexApp.ViewModels
             var evolutionChain = await _service.GetEvolutionChainAsync(Pokemon);
             EvolvesFrom = await evolutionChain.GetEvolvesFrom(Pokemon);
             EvolvesTo = await evolutionChain.GetEvolvesTo(Pokemon);
+
+            await Task.Delay(1500);
+
+            IsLoading = false;
+            IsLoaded = true;
         }
     }
 }
