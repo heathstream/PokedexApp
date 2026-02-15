@@ -69,10 +69,10 @@
 	  <Compile Update="Views\DetailsPage.xaml.cs">
 	    <DependentUpon>DetailsPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\PokedexFrameView.xaml.cs">
+	  <Compile Update="Controls\PokedexFrameView.xaml.cs">
 	    <DependentUpon>PokedexFrameView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\TypeRelationCollectionView.xaml.cs">
+	  <Compile Update="Controls\TypeRelationCollectionView.xaml.cs">
 	    <DependentUpon>TypeRelationCollectionView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
@@ -84,10 +84,10 @@
 	  <MauiXaml Update="Views\DetailsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\PokedexFrameView.xaml">
+	  <MauiXaml Update="Controls\PokedexFrameView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\TypeRelationCollectionView.xaml">
+	  <MauiXaml Update="Controls\TypeRelationCollectionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

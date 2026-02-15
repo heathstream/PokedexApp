@@ -4,8 +4,9 @@ using System.Globalization;
 using System.Text;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
+using PokedexApp.Models;
 
-namespace PokedexApp.Models
+namespace PokedexApp.Converters
 {
     public class TypeColorConverter : IValueConverter
     {

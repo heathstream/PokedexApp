@@ -1,4 +1,4 @@
-﻿namespace PokedexApp.Views
+﻿namespace PokedexApp.Controls
 {
     public partial class PokedexFrameView : ContentView
     {

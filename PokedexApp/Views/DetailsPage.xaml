@@ -8,6 +8,7 @@
     xmlns:local="clr-namespace:PokedexApp.Views"
     xmlns:models="clr-namespace:PokedexApp.Models"
     xmlns:controls="clr-namespace:PokedexApp.Controls"
+    xmlns:converters="clr-namespace:PokedexApp.Converters"
     mc:Ignorable="d"
     BackgroundColor="{Binding Pokemon.Color}"
     x:Name="contentPage">
@@ -105,17 +106,17 @@
 
                                     <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="15">
                                         <Label FontSize="Small" TextColor="Black" Text="Strengths:" HorizontalOptions="Center"/>
-                                        <local:TypeRelationCollectionView BindingContext="{Binding Strengths}"/>
+                                        <controls:TypeRelationCollectionView BindingContext="{Binding Strengths}"/>
                                     </VerticalStackLayout>
 
                                     <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="15">
                                         <Label FontSize="Small" TextColor="Black" Text="Weaknesses:" HorizontalOptions="Center"/>
-                                        <local:TypeRelationCollectionView BindingContext="{Binding Weaknesses}"/>
+                                        <controls:TypeRelationCollectionView BindingContext="{Binding Weaknesses}"/>
                                     </VerticalStackLayout>
 
                                     <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="15">
                                         <Label FontSize="Small" TextColor="Black" Text="Immune to:" HorizontalOptions="Center"/>
-                                        <local:TypeRelationCollectionView BindingContext="{Binding Immunities}"/>
+                                        <controls:TypeRelationCollectionView BindingContext="{Binding Immunities}"/>
                                     </VerticalStackLayout>
 
                                 </Grid>
@@ -207,7 +208,7 @@
 
             </ScrollView>
 
-            <local:PokedexFrameView/>
+            <controls:PokedexFrameView/>
 
         </Grid>
     </ContentPage.Content>
@@ -215,8 +216,8 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <models:TypeColorConverter x:Key="TypeColorConverter"/>
-            <models:BaseStatColorConverter x:Key="BaseStatColorConverter"/>
+            <converters:TypeColorConverter x:Key="TypeColorConverter"/>
+            <converters:BaseStatColorConverter x:Key="BaseStatColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 

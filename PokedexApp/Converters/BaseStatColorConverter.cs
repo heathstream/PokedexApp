@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace PokedexApp.Models
+namespace PokedexApp.Converters
 {
     public class BaseStatColorConverter : IValueConverter
     {
