@@ -1,4 +1,6 @@
-﻿namespace PokedexApp.Controls
+﻿using System.ComponentModel;
+
+namespace PokedexApp.Controls
 {
     public partial class ShimmerView : ContentView
     {
@@ -15,6 +17,20 @@
             set => SetValue(CornerRadiusProperty, value);
         }
 
+        public static readonly BindableProperty IsLoadingProperty =
+            BindableProperty.Create(
+                nameof(IsLoading),
+                typeof(bool),
+                typeof(ShimmerView),
+                true,
+                propertyChanged: OnLoadingChanged);
+
+        public bool IsLoading
+        {
+            get => (bool)GetValue(IsLoadingProperty);
+            set => SetValue(IsLoadingProperty, value);
+        }
+
         public ShimmerView()
         {
             InitializeComponent();
@@ -23,12 +39,17 @@
         protected override void OnParentSet()
         {
             base.OnParentSet();
+
             if (Parent != null)
                 StartShimmer();
+            else
+                StopShimmer();
         }
 
         void StartShimmer()
         {
+            this.AbortAnimation("Shimmer");
+
             var animation = new Animation(v =>
             {
                 var brush = (LinearGradientBrush)ShimmerBox.Background;
@@ -38,6 +59,17 @@
             }, -1.0, 2.0);
 
             animation.Commit(this, "Shimmer", length: 800, easing: Easing.Linear, repeat: () => true);
+        }
+
+        void StopShimmer() => this.AbortAnimation("Shimmer");
+
+        static void OnLoadingChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var view = (ShimmerView)bindable;
+            if ((bool)newValue)
+                view.StartShimmer();
+            else
+                view.StopShimmer();
         }
     }
 }
