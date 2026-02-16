@@ -4,6 +4,8 @@
              xmlns:views="clr-namespace:PokedexApp.Views"
              xmlns:pokedexapp="clr-namespace:PokedexApp"
              xmlns:models="clr-namespace:PokedexApp.Models"
+             xmlns:controls="clr-namespace:PokedexApp.Controls"
+             xmlns:converters="clr-namespace:PokedexApp.Converters"
              x:Class="PokedexApp.MainPage"
              x:Name="contentPage">
 
@@ -33,11 +35,10 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Grid ColumnDefinitions="Auto,*" Padding="10,5" ColumnSpacing="15" HeightRequest="80">
-                                    <!--<BoxView BackgroundColor="Aqua" Grid.Column="0" WidthRequest="50" HeightRequest="50" VerticalOptions="Center"/>-->
-                                    <Image Grid.Column="0" Source="{Binding Icon}" WidthRequest="50" Aspect="AspectFit" IsVisible="{Binding HasOneType}"/>
+                                    <Image Grid.Column="0" Source="{Binding FirstType, Converter={x:StaticResource TypeColorConverter}}" WidthRequest="50" Aspect="AspectFit" IsVisible="{Binding HasOneType}"/>
                                     <Grid RowDefinitions="50" ColumnDefinitions="50" IsVisible="{Binding HasTwoTypes}" VerticalOptions="Center">
-                                        <Image Source="{Binding Icon2}" WidthRequest="35" Aspect="AspectFit" HorizontalOptions="End" VerticalOptions="End"/>
-                                        <Image Source="{Binding Icon}" WidthRequest="35" Aspect="AspectFit" HorizontalOptions="Start" VerticalOptions="Start"/>
+                                        <Image Source="{Binding SecondType, Converter={x:StaticResource TypeColorConverter}}" WidthRequest="35" Aspect="AspectFit" HorizontalOptions="End" VerticalOptions="End"/>
+                                        <Image Source="{Binding FirstType, Converter={x:StaticResource TypeColorConverter}}" WidthRequest="35" Aspect="AspectFit" HorizontalOptions="Start" VerticalOptions="Start"/>
                                     </Grid>
                                     <Grid Grid.Column="1" RowDefinitions="Auto,Auto" RowSpacing="5">
                                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
@@ -65,13 +66,13 @@
 
         </ScrollView>
 
-        <views:PokedexFrameView ScaleX="-1" />
+        <controls:PokedexFrameView ScaleX="-1" />
 
     </Grid>
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <models:TypeColorConverter x:Key="TypeColorConverter"/>
+            <converters:TypeColorConverter x:Key="TypeColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 

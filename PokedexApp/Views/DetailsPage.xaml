@@ -33,7 +33,7 @@
 
                         <!--TOP SPRITE VIEW-->
                         <Image WidthRequest="400" ScaleX="1.5" ScaleY="0.3" Source="blobshadow.png" Grid.Row="0" TranslationY="150" Opacity="0.3"/>
-                        <Image WidthRequest="300" HeightRequest="300" Source="{Binding Pokemon.Sprite}" Grid.Row="0" TranslationY="30"/>
+                        <Image WidthRequest="300" HeightRequest="300" Source="{Binding Pokemon.Sprite}" Grid.Row="0" TranslationY="30" Shadow="0 30 16 Black 0.2"/>
 
 
                         <Border StrokeShape="RoundRectangle 120,120,0,0" StrokeThickness="0" Grid.Row="1">

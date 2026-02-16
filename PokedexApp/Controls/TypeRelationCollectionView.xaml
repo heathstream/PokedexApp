@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:PokedexApp.Controls"
     xmlns:models="clr-namespace:PokedexApp.Models"
+    xmlns:converters="clr-namespace:PokedexApp.Converters"
     mc:Ignorable="d">
     <ContentView.Content>
         <CollectionView ItemsSource="{Binding .}">
@@ -27,7 +28,7 @@
 
     <ContentView.Resources>
         <ResourceDictionary>
-            <models:TypeColorConverter x:Key="TypeColorConverter"/>
+            <converters:TypeColorConverter x:Key="TypeColorConverter"/>
         </ResourceDictionary>
     </ContentView.Resources>
     

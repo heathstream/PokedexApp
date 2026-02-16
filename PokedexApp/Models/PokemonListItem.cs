@@ -13,8 +13,8 @@ namespace PokedexApp.Models
         List<PokemonType>? _types;
         int? _id;
 
-        public string Icon => (Types != null) ? TypeIcons.GetIcon(Types[0]) : TypeIcons.Default;
-        public string Icon2 => (Types != null && HasTwoTypes) ? TypeIcons.GetIcon(Types[1]) : TypeIcons.Default;
+        public PokemonType? FirstType => Types?[0];
+        public PokemonType? SecondType => HasTwoTypes ? Types?[1] : null;
         public bool HasTwoTypes => Types?.Count > 1;
         public bool HasOneType => !HasTwoTypes;
         public bool HasId => Id != null;
@@ -26,8 +26,8 @@ namespace PokedexApp.Models
             {
                 _types = value;
                 OnPropertyChanged(nameof(Types));
-                OnPropertyChanged(nameof(Icon));
-                OnPropertyChanged(nameof(Icon2));
+                OnPropertyChanged(nameof(FirstType));
+                OnPropertyChanged(nameof(SecondType));
                 OnPropertyChanged(nameof(HasTwoTypes));
                 OnPropertyChanged(nameof(HasOneType));
             }

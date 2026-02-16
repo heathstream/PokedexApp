@@ -1,13 +1,14 @@
-﻿using System;
+﻿using PokedexApp;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
-using PokedexApp;
 
 namespace PokedexApp.Models
 {
-    public static class TypeIcons
+    public class TypeIconConverter : IValueConverter
     {
-        private static Dictionary<PokemonType, string> _iconPaths = new()
+        private Dictionary<PokemonType, string> _iconPaths = new()
         {
             [PokemonType.Normal] = "typeicon_normal.png",
             [PokemonType.Fighting] = "typeicon_fighting.png",
@@ -28,7 +29,11 @@ namespace PokedexApp.Models
             [PokemonType.Dark] = "typeicon_dark.png",
             [PokemonType.Fairy] = "typeicon_fairy.png"
         };
-        public static string Default => "typeicon_unknown.png";
-        public static string GetIcon(PokemonType type) => _iconPaths[type];
+        public string Default => "typeicon_unknown.png";
+        public string GetIcon(PokemonType type) => _iconPaths[type];
+        public object? Convert(object? value, System.Type targetType, object? parameter, CultureInfo culture) =>
+            (value is PokemonType type) ? _iconPaths[type] : Default;
+        public object? ConvertBack(object? value, System.Type targetType, object? parameter, CultureInfo culture) =>
+            throw new NotImplementedException();
     }
 }
