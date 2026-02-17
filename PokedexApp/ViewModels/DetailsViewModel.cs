@@ -16,6 +16,9 @@ namespace PokedexApp.ViewModels
         [ObservableProperty] bool _isLoading = true;
         [ObservableProperty] bool _isLoaded = false;
 
+        [ObservableProperty] bool _isLoadingMoves = true;
+        [ObservableProperty] bool _isLoadedMoves = false;
+
         // POKEMON PROPERTIES
         [ObservableProperty] Pokemon _pokemon;
 
@@ -28,6 +31,8 @@ namespace PokedexApp.ViewModels
         [ObservableProperty] List<Pokemon> _evolvesFrom;
 
         [ObservableProperty] List<Pokemon> _evolvesTo;
+
+        [ObservableProperty] List<Move> _moves;
 
         public bool HasTwoTypes => (Pokemon.Types.Count == 2);
 
@@ -48,10 +53,19 @@ namespace PokedexApp.ViewModels
             EvolvesFrom = await evolutionChain.GetEvolvesFrom(Pokemon);
             EvolvesTo = await evolutionChain.GetEvolvesTo(Pokemon);
 
-            await Task.Delay(1500);
+            await Task.Delay(500);
 
             IsLoading = false;
             IsLoaded = true;
+        }
+
+        public async Task LoadMovesAsync()
+        {
+            var moveTasks = Pokemon.Moves.Select(async m => await _service.GetMoveAsync(m));
+            Moves = (await Task.WhenAll(moveTasks)).ToList();
+
+            IsLoadingMoves = false;
+            IsLoadedMoves = true;
         }
     }
 }

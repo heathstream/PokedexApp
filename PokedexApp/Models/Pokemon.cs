@@ -19,6 +19,7 @@ namespace PokedexApp.Models
         public Color Color { get; set; }
         public string EvolutionChainUrl { get; set; }
         public List<BaseStat> BaseStats { get; set; } = new();
+        public List<string> Moves { get; set; }
 
         public Pokemon(PokemonApiData pData, SpeciesApiData sData)
         {
@@ -41,6 +42,7 @@ namespace PokedexApp.Models
                 Effort = s.effort,
                 Stat = Enum.Parse<PokemonStat>(s.stat.name.Replace("-", ""), true)
             }).ToList();
+            Moves = pData.moves.Select(m => m.move.name).ToList();
         }
 
         public bool Equals(Pokemon? other)

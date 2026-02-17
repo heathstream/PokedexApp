@@ -16,6 +16,7 @@ namespace PokedexApp.Services
 
         Dictionary<string, Pokemon> _pokemonCache = new();
         Dictionary<string, EvolutionChain> _evolutionChainCache = new();
+        Dictionary<string, Move> _moveCache = new();
         List<PokemonListItem> _pkmnListItemCache = new();
 
         public PokeApiService()
@@ -113,6 +114,20 @@ namespace PokedexApp.Services
                     MinLevel = apiData.evolution_details.FirstOrDefault()?.min_level,
                     EvolvesTo = (await Task.WhenAll(apiData.evolves_to.Select(Convert))).ToList()
                 };
+        }
+
+        public async Task<Move> GetMoveAsync(string moveName)
+        {
+            if (_moveCache.TryGetValue(moveName, out Move? cachedMove))
+                return cachedMove;
+
+            var uri = $"https://pokeapi.co/api/v2/move/{moveName}";
+            MoveApiData? apiData = await httpClient.GetFromJsonAsync<MoveApiData>(uri);
+
+            var move = new Move(apiData);
+
+            _moveCache[move.Name.ToLower()] = move; 
+            return move;
         }
     }
 }

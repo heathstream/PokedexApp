@@ -33,12 +33,12 @@
 
                         <!--TOP SPRITE VIEW-->
                         <Image WidthRequest="400" ScaleX="1.5" ScaleY="0.3" Source="blobshadow.png" Grid.Row="0" TranslationY="150" Opacity="0.3"/>
-                        <Image WidthRequest="300" HeightRequest="300" Source="{Binding Pokemon.Sprite}" Grid.Row="0" TranslationY="30" Shadow="0 0 16 Black 0.2"/>
+                        <Image WidthRequest="300" HeightRequest="300" Source="{Binding Pokemon.Sprite}" Grid.Row="0" TranslationY="30" Shadow="0 0 16 Black 0.15"/>
 
 
                         <Border StrokeShape="RoundRectangle 120,120,0,0" StrokeThickness="0" Grid.Row="1">
 
-                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="25" Padding="50,20" Grid.Row="1" BackgroundColor="White">
+                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="25" Padding="50,20" Grid.Row="1" BackgroundColor="White">
 
                                 <!--NAME LABEL-->
                                 <HorizontalStackLayout Grid.Row="0" Spacing="5" HorizontalOptions="Center">
@@ -148,6 +148,21 @@
                                     </VerticalStackLayout>
 
                                 </Grid>
+                                
+                                <!--MOVES-->
+                                <VerticalStackLayout Grid.Row="7" HorizontalOptions="Center" Spacing="15">
+                                    <Label FontSize="Small" TextColor="Black" Text="Moves" HorizontalOptions="Center"/>
+                                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Moves}" Spacing="5">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="20">
+                                                    <Label Grid.Column="0" TextColor="Gray" Text="{Binding Type}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                                    <Label Grid.Column="1" TextColor="Gray" Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </VerticalStackLayout>
+                                </VerticalStackLayout>
 
                             </Grid>
                         </Border>

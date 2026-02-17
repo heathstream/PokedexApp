@@ -16,6 +16,7 @@ namespace PokedexApp.Models
         public List<types> types { get; set; }
         public string flavor_text { get; set; }
         public List<pokemon_stat> stats { get; set; }
+        public List<pokemon_move> moves { get; set; }
 
     }
 
@@ -35,13 +36,6 @@ namespace PokedexApp.Models
         public string front_default { get; set; }
     }
 
-    // TYPE
-    //public class type
-    //{
-    //    public string name { get; set; }
-    //    public string url { get; set; }
-    //}
-
     public class types
     {
         public type type { get; set; }
@@ -56,6 +50,17 @@ namespace PokedexApp.Models
     }
 
     public class stat
+    {
+        public string name { get; set; }
+        public string url { get; set; }
+    }
+
+    public class pokemon_move
+    {
+        public move move { get; set; }
+    }
+
+    public class move
     {
         public string name { get; set; }
         public string url { get; set; }
