@@ -163,6 +163,8 @@
                                         </BindableLayout.ItemTemplate>
                                     </VerticalStackLayout>
                                 </VerticalStackLayout>
+                                
+                                
 
                             </Grid>
                         </Border>
