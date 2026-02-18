@@ -2,6 +2,7 @@
 using PokedexApp.Services;
 using PokedexApp.ViewModels;
 using System.ComponentModel;
+using CommunityToolkit.Maui;
 
 namespace PokedexApp.Views
 {

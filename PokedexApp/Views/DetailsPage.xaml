@@ -9,18 +9,10 @@
     xmlns:models="clr-namespace:PokedexApp.Models"
     xmlns:controls="clr-namespace:PokedexApp.Controls"
     xmlns:converters="clr-namespace:PokedexApp.Converters"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     mc:Ignorable="d"
-    BackgroundColor="{Binding Pokemon.Color}"
+    BackgroundColor="#dc0a2d"
     x:Name="contentPage">
-
-    <!--<ContentPage.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-            -->
-    <!--<GradientStop Color="AntiqueWhite" Offset="0.1"/>-->
-    <!--<GradientStop Color="#8d072b" Offset="1.0"/>-->
-    <!--
-        </LinearGradientBrush>
-    </ContentPage.Background>-->
 
 
     <ContentPage.Content>
@@ -29,21 +21,23 @@
                 <Grid>
 
 
-                    <Grid RowDefinitions="400, *" IsVisible="{Binding IsLoaded}">
+                    <Grid RowDefinitions="300, *" IsVisible="{Binding IsLoaded}">
 
                         <!--TOP SPRITE VIEW-->
-                        <Image WidthRequest="400" ScaleX="1.5" ScaleY="0.3" Source="blobshadow.png" Grid.Row="0" TranslationY="150" Opacity="0.3"/>
-                        <Image WidthRequest="300" HeightRequest="300" Source="{Binding Pokemon.Sprite}" Grid.Row="0" TranslationY="30" Shadow="0 0 16 Black 0.15"/>
+                        <BoxView Grid.Row="0"/>
+                        <Image WidthRequest="300" ScaleX="1.5" ScaleY="0.3" Source="blobshadow.png" Grid.Row="0" TranslationY="110" Opacity="0.3"/>
+                        <Image WidthRequest="250" HeightRequest="300" Source="{Binding Pokemon.Sprite}" Grid.Row="0" TranslationY="25" Shadow="0 0 10 Cyan 0.8"/>
 
 
-                        <Border StrokeShape="RoundRectangle 120,120,0,0" StrokeThickness="0" Grid.Row="1">
+                        <Border  StrokeThickness="0" Grid.Row="1">
 
-                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="25" Padding="50,20" Grid.Row="1" BackgroundColor="White">
+                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="{Binding Source={x:Reference contentPage}, Path=Width}" RowSpacing="20" Padding="40,20" Grid.Row="1" BackgroundColor="White">
+                                <!--<Image Source="pokedexframe_middle.png" Grid.Row="0" Aspect="Fill" HeightRequest="30" WidthRequest="{Binding Source={x:Reference contentPage}, Path=Width}" TranslationY="-30" Shadow="0 2 2 Black 0.3"/>-->
 
                                 <!--NAME LABEL-->
                                 <HorizontalStackLayout Grid.Row="0" Spacing="5" HorizontalOptions="Center">
-                                    <Label TextColor="Black" FontSize="35" FontAttributes="Bold" Text="{Binding Pokemon.Name}" HorizontalOptions="Center" x:Name="NameLabel"/>
-                                    <Label TextColor="Gray" FontSize="35" Text="{Binding Pokemon.Id, StringFormat='#{0:000}'}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                                    <Label TextColor="Black" FontSize="Title" FontAttributes="Bold" Text="{Binding Pokemon.Name}" HorizontalOptions="Center" x:Name="NameLabel"/>
+                                    <Label TextColor="Gray" FontSize="Title" Text="{Binding Pokemon.Id, StringFormat='#{0:000}'}" HorizontalOptions="Start" VerticalOptions="Center"/>
                                 </HorizontalStackLayout>
 
                                 <!--TYPES-->
@@ -53,15 +47,17 @@
                                     </CollectionView.ItemsLayout>
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
-                                            <Border StrokeShape="RoundRectangle 20" Padding="15,1,15,0" BackgroundColor="{Binding ., Converter={StaticResource TypeColorConverter}}">
-                                                <Label TextColor="White" Text="{Binding .}" FontSize="Medium" FontAttributes="Bold"/>
+                                            <Border StrokeShape="RoundRectangle 20" Padding="20,5" BackgroundColor="{Binding ., Converter={StaticResource TypeColorConverter}}">
+                                                <Label TextColor="White" Text="{Binding .}" FontSize="Medium" FontAttributes="Bold" TextTransform="Uppercase"/>
                                             </Border>
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
 
                                 <!--DESCRIPTION-->
-                                <Label TextColor="Black" Text="{Binding Pokemon.Description}" FontSize="Small" Grid.Row="2" HorizontalOptions="Center"/>
+                                <Grid Grid.Row="2" HorizontalOptions="Center">
+                                    <Label TextColor="Black" Text="{Binding Pokemon.Description}" FontSize="Body" Grid.Row="2" HorizontalTextAlignment="Center"/>
+                                </Grid>
 
                                 <!--WEIGHT & HEIGHT-->
                                 <Grid ColumnDefinitions="*, *" Grid.Row="3" ColumnSpacing="20">
@@ -81,19 +77,19 @@
                                 </Grid>
 
                                 <!--BASE STATS-->
-                                <VerticalStackLayout Grid.Row="4" Spacing="10">
-                                    <Label TextColor="Black" Text="Base Stats:" FontSize="Small" HorizontalOptions="Center"/>
+                                <VerticalStackLayout Grid.Row="4" Spacing="10" HorizontalOptions="Center">
+                                    <Label TextColor="Black" Text="BASE STATS:" FontSize="Body" HorizontalOptions="Center"/>
                                     <CollectionView ItemsSource="{Binding Pokemon.BaseStats}">
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid ColumnDefinitions="80,40,*" ColumnSpacing="20">
-                                                    <Label TextColor="Gray" FontSize="Small" Grid.Column="0" 
+                                                <Grid ColumnDefinitions="70,30,*" ColumnSpacing="10" Padding="0,3">
+                                                    <Label TextColor="Gray" FontSize="Body" Grid.Column="0" 
                                                        Text="{Binding StatString, StringFormat='{0}:'}" HorizontalOptions="End" VerticalOptions="Center"/>
-                                                    <Label TextColor="Black" FontSize="Medium" Grid.Column="1" 
+                                                    <Label TextColor="Black" FontSize="Body" FontAttributes="Bold" Grid.Column="1" 
                                                        Text="{Binding Number}" HorizontalOptions="End" VerticalOptions="Center"/>
-                                                    <ProgressBar ProgressColor="#DDDDDD" BackgroundColor="Transparent" ScaleY="6" 
-                                                             Grid.Column="2" Progress="1"/>
-                                                    <ProgressBar ProgressColor="{Binding Number, Converter={StaticResource BaseStatColorConverter}}" BackgroundColor="Transparent" ScaleY="3" 
+                                                    <!--<ProgressBar ProgressColor="#DDDDDD" BackgroundColor="Transparent" ScaleY="0" 
+                                                             Grid.Column="2" Progress="1"/>-->
+                                                    <ProgressBar ProgressColor="{Binding Number, Converter={StaticResource BaseStatColorConverter}}" BackgroundColor="Transparent" ScaleY="4" 
                                                              Grid.Column="2" Progress="{Binding NumberNormalized}"/>
                                                 </Grid>
                                             </DataTemplate>
@@ -104,18 +100,18 @@
                                 <!--STRENGTHS & WEAKNESSES-->
                                 <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10" Grid.Row="5">
 
-                                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="15">
-                                        <Label FontSize="Small" TextColor="Black" Text="Strengths:" HorizontalOptions="Center"/>
+                                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="10">
+                                        <Label FontSize="Small" TextColor="Black" Text="STRENGTHS:" HorizontalOptions="Center"/>
                                         <controls:TypeRelationCollectionView BindingContext="{Binding Strengths}"/>
                                     </VerticalStackLayout>
 
-                                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="15">
-                                        <Label FontSize="Small" TextColor="Black" Text="Weaknesses:" HorizontalOptions="Center"/>
+                                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="10">
+                                        <Label FontSize="Small" TextColor="Black" Text="WEAKNESSES:" HorizontalOptions="Center"/>
                                         <controls:TypeRelationCollectionView BindingContext="{Binding Weaknesses}"/>
                                     </VerticalStackLayout>
 
-                                    <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="15">
-                                        <Label FontSize="Small" TextColor="Black" Text="Immune to:" HorizontalOptions="Center"/>
+                                    <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="10">
+                                        <Label FontSize="Small" TextColor="Black" Text="IMMUNE TO:" HorizontalOptions="Center"/>
                                         <controls:TypeRelationCollectionView BindingContext="{Binding Immunities}"/>
                                     </VerticalStackLayout>
 
@@ -163,21 +159,72 @@
                                         </BindableLayout.ItemTemplate>
                                     </VerticalStackLayout>
                                 </VerticalStackLayout>
-                                
-                                
+
+                                <!--<Grid Grid.Row="1" RowDefinitions="Auto,400">
+                                    --><!--<Label Grid.Row="0" FontSize="Small" TextColor="Black" Text="Carousel Test" HorizontalOptions="Center"/>--><!--
+                                    <IndicatorView HorizontalOptions="Center" 
+                                                   IndicatorColor="LightGray" 
+                                                   SelectedIndicatorColor="Gray"
+                                                   IndicatorSize="12" 
+                                                   IndicatorsShape="Square"
+                                                   x:Name="SectionsIndicator">
+                                        --><!--<IndicatorView.IndicatorTemplate>
+                                            <DataTemplate>
+                                                <Label TextColor="Black" Text="{Binding .}"/>
+                                            </DataTemplate>
+                                        </IndicatorView.IndicatorTemplate>--><!--
+                                    </IndicatorView>
+                                    
+                                    <Border Grid.Row="1" StrokeThickness="4" BackgroundColor="LightGray">
+                                        <CarouselView BackgroundColor="AliceBlue" 
+                                                      HorizontalOptions="Fill" 
+                                                      Grid.Row="1" 
+                                                      x:Name="SectionsCarousel" 
+                                                      IndicatorView="{x:Reference SectionsIndicator}" 
+                                                      IsSwipeEnabled="True">
+                                        
+                                            <CarouselView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid BackgroundColor="Gray">
+                                                        <ContentView Content="{Binding}"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </CarouselView.ItemTemplate>
+                                        
+                                            <CarouselView.ItemsSource>
+                                                <x:Array Type="{x:Type View}">
+                                                    <local:DetailsInfoView/>
+                                                    <local:DetailsEvolutionsView/>
+                                                    <local:DetailsMovesView/>
+                                                </x:Array>
+                                            </CarouselView.ItemsSource>
+
+                                            --><!--<CarouselView.ItemsSource>
+                                                <x:Array Type="{x:Type BoxView}">
+                                                    <BoxView Color="Blue" WidthRequest="200" HeightRequest="200"/>
+                                                    <BoxView Color="Red" WidthRequest="200" HeightRequest="100"/>
+                                                    <BoxView Color="Green" WidthRequest="100" HeightRequest="200"/>
+                                                    <BoxView Color="Cyan" WidthRequest="200" HeightRequest="100"/>
+                                                </x:Array>
+                                            </CarouselView.ItemsSource>--><!--
+                                        </CarouselView>
+                                    
+                                    </Border>
+                                </Grid>-->
 
                             </Grid>
                         </Border>
+                        
 
                     </Grid>
 
-                    <Grid RowDefinitions="400, *">
+                    <Grid RowDefinitions="300, *" InputTransparent="True">
 
                         <ActivityIndicator WidthRequest="200" HeightRequest="200" IsRunning="True" Color="#DC0A2D" Grid.Row="0" TranslationY="40" IsVisible="{Binding IsLoading}"/>
 
                         <Border StrokeShape="RoundRectangle 120,120,0,0" StrokeThickness="0" Grid.Row="1">
 
-                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="25" Padding="50,20" Grid.Row="1" BackgroundColor="White" IsVisible="{Binding IsLoading}">
+                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="20" Padding="50,20" Grid.Row="1" BackgroundColor="White" IsVisible="{Binding IsLoading}">
 
                                 <!--NAME LABEL-->
                                 <controls:ShimmerView Grid.Row="0" CornerRadius="5" WidthRequest="240" HeightRequest="50" HorizontalOptions="Center"/>
@@ -222,10 +269,10 @@
                         </Border>
                     </Grid>
                 </Grid>
-
+                
             </ScrollView>
 
-            <controls:PokedexFrameView/>
+            <controls:PokedexFrameView InputTransparent="True"/>
 
         </Grid>
     </ContentPage.Content>

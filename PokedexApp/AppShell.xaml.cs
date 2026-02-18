@@ -5,6 +5,7 @@
         public AppShell()
         {
             InitializeComponent();
+            SetNavBarIsVisible(this, false);
         }
     }
 }

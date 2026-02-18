@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="PokedexApp.Views.DetailsEvolutionsView"
+    xmlns="http://schemas.microsoft.com/dotnet/maui/global"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/maui/global/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:PokedexApp.Views"
+    mc:Ignorable="d"
+    WidthRequest="200">
+    <ContentView.Content>
+        <Grid HorizontalOptions="Center" ColumnDefinitions="Auto">
+            <Label
+                HorizontalOptions="Start"
+                Text="Pokemon Evolutions"
+                TextColor="Purple"
+                VerticalOptions="Center"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

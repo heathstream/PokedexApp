@@ -11,14 +11,14 @@
     <ContentView.Content>
         
         <!--POKEDEX FRAME GRID-->
-        <Grid RowDefinitions="70,*,25" ColumnDefinitions="25,*,25"
+        <Grid RowDefinitions="50,*,18" ColumnDefinitions="18,*,18"
               HorizontalOptions="Fill" VerticalOptions="Fill"
               InputTransparent="true">
 
-            <BoxView Grid.Row="2" Grid.Column="0" Color="DarkRed" Grid.ColumnSpan="3"/>
-            <Image Source="pokedexframe_right.png" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Aspect="Fill" Shadow="-2 0 6 Black 0.5"/>
-            <Image Source="pokedexframe_left.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Aspect="Fill" Shadow="2 0 6 Black 0.5"/>
-            <Image Source="pokedexframe_topleft.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Aspect="Fill" Shadow="0 4 6 Black 0.5"/>
+            <!--<BoxView Grid.Row="2" Grid.Column="0" Color="DarkRed" Grid.ColumnSpan="3"/>-->
+            <Image Source="pokedexframe_right.png" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Aspect="Fill" Shadow="-2 0 3 Black 0.3"/>
+            <Image Source="pokedexframe_left.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Aspect="Fill" Shadow="2 0 3 Black 0.3"/>
+            <Image Source="pokedexframe_topleft.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Aspect="Fill" Shadow="0 4 5 Black 0.5"/>
 
         </Grid>
         
