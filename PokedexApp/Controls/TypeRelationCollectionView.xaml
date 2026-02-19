@@ -23,6 +23,16 @@
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Grid RowDefinitions="*,5">
+                    <Border StrokeShape="RoundRectangle 20" Padding="10,5"  BackgroundColor="{Binding Key, Converter={StaticResource TypeColorConverter}}">
+                        <Grid RowDefinitions="Auto,*">
+                            <Label Grid.Row="0" TextColor="White" Text="Test" TextTransform="Uppercase" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Label Grid.Row="1" TextColor="White" Text="Test" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </CollectionView.EmptyView>
         </CollectionView>
     </ContentView.Content>
 
