@@ -35,11 +35,4 @@
             </CollectionView.EmptyView>
         </CollectionView>
     </ContentView.Content>
-
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <converters:TypeColorConverter x:Key="TypeColorConverter"/>
-        </ResourceDictionary>
-    </ContentView.Resources>
-    
 </ContentView>

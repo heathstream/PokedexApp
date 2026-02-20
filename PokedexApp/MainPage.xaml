@@ -10,81 +10,61 @@
              x:Name="contentPage"
              BackgroundColor="#dc0a2d">
 
-    <!--<ContentPage.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="#d30b41" Offset="0.1"/>
-            --><!--<GradientStop Color="#8d072b" Offset="1.0"/>--><!--
-        </LinearGradientBrush>
-    </ContentPage.Background>-->
-
-
     <Grid>
-        
-        
-        <!--<ScrollView>-->
 
-            <Grid RowSpacing="10" RowDefinitions="50,Auto,*">
+        <Grid RowSpacing="10" RowDefinitions="50,Auto,*">
 
-                <!--ENTRY BOX & SEARCH BUTTON-->
-                <Border Grid.Row="1" BackgroundColor="White" StrokeShape="RoundRectangle 30" StrokeThickness="0" Margin="30,5">
-                    <Grid Grid.Row="1" ColumnDefinitions="Auto,*">
-                        <Entry Grid.Column="1" TextColor="Black" FontSize="Medium" TextChanged="Entry_TextChanged" ClearButtonVisibility="WhileEditing"/>
-                        <Image Source="search.png" WidthRequest="30" Margin="10,0,5,0"/>
-                    </Grid>
-                </Border>
+            <!--ENTRY BOX & SEARCH BUTTON-->
+            <Border Grid.Row="1" BackgroundColor="White" StrokeShape="RoundRectangle 30" StrokeThickness="0" Margin="30,5">
+                <Grid Grid.Row="1" ColumnDefinitions="Auto,*">
+                    <Entry Grid.Column="1" TextColor="Black" FontSize="Medium" TextChanged="Entry_TextChanged" ClearButtonVisibility="WhileEditing"/>
+                    <Image Source="search.png" WidthRequest="30" Margin="10,0,5,0"/>
+                </Grid>
+            </Border>
 
             <!--SEARCH RESULTS LIST-->
-                <Grid Grid.Row="2" BackgroundColor="White" Padding="20,5">
-                    <CollectionView x:Name="pokemonList" SelectionMode="Single" ItemsSource="{Binding FilteredPokemonList}" SelectionChanged="pokemonList_SelectionChanged" MaximumHeightRequest="800">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid ColumnDefinitions="2,Auto,*" Padding="10,5" ColumnSpacing="10" HeightRequest="80">
+            <Grid Grid.Row="2" BackgroundColor="White" Padding="20,5">
+                <CollectionView x:Name="pokemonList" SelectionMode="Single" ItemsSource="{Binding FilteredPokemonList}" SelectionChanged="pokemonList_SelectionChanged" MaximumHeightRequest="800">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="2,Auto,*" Padding="10,5" ColumnSpacing="10" HeightRequest="80">
                                 <Border BackgroundColor="Transparent" Grid.Column="0" Grid.ColumnSpan="3" StrokeShape="RoundRectangle 10" StrokeThickness="1"/>
                                 <Grid Grid.Column="1" RowDefinitions="50" ColumnDefinitions="50" IsVisible="{Binding HasTwoTypes}" VerticalOptions="Center">
-                                        <Image Source="{Binding FirstType, Converter={x:StaticResource TypeIconConverter}}" WidthRequest="50" Aspect="AspectFit" IsVisible="{Binding HasOneType}"/>
-                                        <Image Source="{Binding SecondType, Converter={x:StaticResource TypeIconConverter}}" WidthRequest="35" Aspect="AspectFit" HorizontalOptions="End" VerticalOptions="End"/>
-                                        <Image Source="{Binding FirstType, Converter={x:StaticResource TypeIconConverter}}" WidthRequest="35" Aspect="AspectFit" HorizontalOptions="Start" VerticalOptions="Start"/>
+                                    <Image Source="{Binding FirstType, Converter={x:StaticResource TypeIconConverter}}" WidthRequest="50" Aspect="AspectFit" IsVisible="{Binding HasOneType}"/>
+                                    <Image Source="{Binding SecondType, Converter={x:StaticResource TypeIconConverter}}" WidthRequest="35" Aspect="AspectFit" HorizontalOptions="End" VerticalOptions="End"/>
+                                    <Image Source="{Binding FirstType, Converter={x:StaticResource TypeIconConverter}}" WidthRequest="35" Aspect="AspectFit" HorizontalOptions="Start" VerticalOptions="Start"/>
+                                </Grid>
+                                <Grid Grid.Column="2" RowDefinitions="Auto,Auto" RowSpacing="2" VerticalOptions="Center">
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
+                                        <Label TextColor="Black" FontAttributes="Bold" Text="{Binding Name}" FontSize="Medium"/>
+                                        <Label TextColor="Gray" Text="{Binding Id, StringFormat='#{0:000}'}" IsVisible="{Binding HasId}" FontSize="Medium" Grid.Column="1" VerticalOptions="Center"/>
                                     </Grid>
-                                    <Grid Grid.Column="2" RowDefinitions="Auto,Auto" RowSpacing="2" VerticalOptions="Center">
-                                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
-                                            <Label TextColor="Black" FontAttributes="Bold" Text="{Binding Name}" FontSize="Medium"/>
-                                            <Label TextColor="Gray" Text="{Binding Id, StringFormat='#{0:000}'}" IsVisible="{Binding HasId}" FontSize="Medium" Grid.Column="1" VerticalOptions="Center"/>
-                                        </Grid>
-                                        <Grid Grid.Row="1" RowDefinitions="Auto">
-                                            <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Types}" Spacing="5">
-                                                <BindableLayout.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Border StrokeShape="RoundRectangle 20" Padding="10,0,10,2" BackgroundColor="{Binding ., Converter={StaticResource TypeColorConverter}}">
-                                                            <Label TextColor="White" Text="{Binding .}" FontSize="Body" FontAttributes="Bold" VerticalOptions="Center"/>
-                                                        </Border>
-                                                    </DataTemplate>
-                                                </BindableLayout.ItemTemplate>
-                                                <BindableLayout.EmptyView>
-                                                    <Border StrokeShape="RoundRectangle 20" Padding="10,0,10,2" BackgroundColor="LightGray">
-                                                        <Label TextColor="White" Text="? ? ?" FontSize="Body" FontAttributes="Bold" VerticalOptions="Center"/>
+                                    <Grid Grid.Row="1" RowDefinitions="Auto">
+                                        <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Types}" Spacing="5">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border StrokeShape="RoundRectangle 20" Padding="10,0,10,2" BackgroundColor="{Binding ., Converter={StaticResource TypeColorConverter}}">
+                                                        <Label TextColor="White" Text="{Binding .}" FontSize="Body" FontAttributes="Bold" VerticalOptions="Center"/>
                                                     </Border>
-                                                </BindableLayout.EmptyView>
-                                            </HorizontalStackLayout>
-                                        </Grid>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                            <BindableLayout.EmptyView>
+                                                <Border StrokeShape="RoundRectangle 20" Padding="10,0,10,2" BackgroundColor="LightGray">
+                                                    <Label TextColor="White" Text="? ? ?" FontSize="Body" FontAttributes="Bold" VerticalOptions="Center"/>
+                                                </Border>
+                                            </BindableLayout.EmptyView>
+                                        </HorizontalStackLayout>
                                     </Grid>
                                 </Grid>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Grid>
-
-        <!--</ScrollView>-->
+        </Grid>
 
         <controls:PokedexFrameView ScaleX="-1" />
 
     </Grid>
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:TypeColorConverter x:Key="TypeColorConverter"/>
-            <converters:TypeIconConverter x:Key="TypeIconConverter"/>
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
 </ContentPage>

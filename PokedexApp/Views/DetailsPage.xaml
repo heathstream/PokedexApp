@@ -29,10 +29,9 @@
                         <Image WidthRequest="250" HeightRequest="300" Source="{Binding Pokemon.Sprite}" Grid.Row="0" TranslationY="25" Shadow="0 0 10 Cyan 0.8"/>
 
 
-                        <!--<Border  StrokeThickness="0" Grid.Row="1">-->
 
-                        <Grid Grid.Row="1" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="{Binding Source={x:Reference contentPage}, Path=Width}" RowSpacing="20" Padding="40,20" BackgroundColor="White">
-                            <!--<Image Source="pokedexframe_middle.png" Grid.Row="0" Aspect="Fill" HeightRequest="30" WidthRequest="{Binding Source={x:Reference contentPage}, Path=Width}" TranslationY="-30" Shadow="0 2 2 Black 0.3"/>-->
+                        <Grid Grid.Row="1" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="20" Padding="40,20" BackgroundColor="White">
+
 
                             <!--NAME LABEL-->
                             <HorizontalStackLayout Grid.Row="0" Spacing="5" HorizontalOptions="Center">
@@ -219,8 +218,6 @@
                                 </Grid>-->
 
                         </Grid>
-                        <!--</Border>-->
-
 
                     </Grid>
 
@@ -282,13 +279,5 @@
 
         </Grid>
     </ContentPage.Content>
-
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:TypeColorConverter x:Key="TypeColorConverter"/>
-            <converters:BaseStatColorConverter x:Key="BaseStatColorConverter"/>
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
 </ContentPage>
