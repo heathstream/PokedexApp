@@ -29,150 +29,154 @@
                         <Image WidthRequest="250" HeightRequest="300" Source="{Binding Pokemon.Sprite}" Grid.Row="0" TranslationY="25" Shadow="0 0 10 Cyan 0.8"/>
 
 
-                        <Border  StrokeThickness="0" Grid.Row="1">
+                        <!--<Border  StrokeThickness="0" Grid.Row="1">-->
 
-                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="{Binding Source={x:Reference contentPage}, Path=Width}" RowSpacing="20" Padding="40,20" Grid.Row="1" BackgroundColor="White">
-                                <!--<Image Source="pokedexframe_middle.png" Grid.Row="0" Aspect="Fill" HeightRequest="30" WidthRequest="{Binding Source={x:Reference contentPage}, Path=Width}" TranslationY="-30" Shadow="0 2 2 Black 0.3"/>-->
+                        <Grid Grid.Row="1" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="{Binding Source={x:Reference contentPage}, Path=Width}" RowSpacing="20" Padding="40,20" BackgroundColor="White">
+                            <!--<Image Source="pokedexframe_middle.png" Grid.Row="0" Aspect="Fill" HeightRequest="30" WidthRequest="{Binding Source={x:Reference contentPage}, Path=Width}" TranslationY="-30" Shadow="0 2 2 Black 0.3"/>-->
 
-                                <!--NAME LABEL-->
-                                <HorizontalStackLayout Grid.Row="0" Spacing="5" HorizontalOptions="Center">
-                                    <Label TextColor="Black" FontSize="Title" FontAttributes="Bold" Text="{Binding Pokemon.Name}" HorizontalOptions="Center" x:Name="NameLabel"/>
-                                    <Label TextColor="Gray" FontSize="Title" Text="{Binding Pokemon.Id, StringFormat='#{0:000}'}" HorizontalOptions="Start" VerticalOptions="Center"/>
-                                </HorizontalStackLayout>
+                            <!--NAME LABEL-->
+                            <HorizontalStackLayout Grid.Row="0" Spacing="5" HorizontalOptions="Center">
+                                <Label TextColor="Black" FontSize="Title" FontAttributes="Bold" Text="{Binding Pokemon.Name}" HorizontalOptions="Center" x:Name="NameLabel"/>
+                                <Label TextColor="Gray" FontSize="Title" Text="{Binding Pokemon.Id, StringFormat='#{0:000}'}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
 
-                                <!--TYPES-->
-                                <CollectionView Grid.Row="1" HorizontalOptions="Center" ItemsSource="{Binding Pokemon.Types}">
-                                    <CollectionView.ItemsLayout>
-                                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="12"/>
-                                    </CollectionView.ItemsLayout>
+                            <!--TYPES-->
+                            <CollectionView Grid.Row="1" HorizontalOptions="Center" ItemsSource="{Binding Pokemon.Types}">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="12"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border StrokeShape="RoundRectangle 20" Padding="20,5" BackgroundColor="{Binding ., Converter={StaticResource TypeColorConverter}}">
+                                            <Label TextColor="White" Text="{Binding .}" FontSize="Medium" FontAttributes="Bold" TextTransform="Uppercase"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                            <!--DESCRIPTION-->
+                            <Grid Grid.Row="2" HorizontalOptions="Center">
+                                <Label TextColor="Black" Text="{Binding Pokemon.Description}" FontSize="Body" Grid.Row="2" HorizontalTextAlignment="Center"/>
+                            </Grid>
+
+                            <!--WEIGHT & HEIGHT-->
+                            <Grid ColumnDefinitions="*, *" Grid.Row="3" ColumnSpacing="20">
+
+                                <VerticalStackLayout HorizontalOptions="Fill" Grid.Column="0" Spacing="5">
+                                    <Label TextColor="Black" FontSize="Small" Text="Weight:" Margin="8,0"/>
+                                    <Border StrokeShape="RoundRectangle 15" Padding="10" HorizontalOptions="Fill">
+                                        <Label TextColor="Black" Text="{Binding Pokemon.Weight, StringFormat='{0:F1} kg'}" FontSize="Medium" HorizontalOptions="Center"/>
+                                    </Border>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout HorizontalOptions="Fill" Grid.Column="1" Spacing="5">
+                                    <Label TextColor="Black" FontSize="Small" Text="Height:" Margin="8,0"/>
+                                    <Border StrokeShape="RoundRectangle 15" Padding="10" HorizontalOptions="Fill">
+                                        <Label TextColor="Black" Text="{Binding Pokemon.Height, StringFormat='{0:F1} m'}" FontSize="Medium" HorizontalOptions="Center"/>
+                                    </Border>
+                                </VerticalStackLayout>
+                            </Grid>
+
+                            <!--BASE STATS-->
+                            <VerticalStackLayout Grid.Row="4" Spacing="10" HorizontalOptions="Center">
+                                <Label TextColor="Black" Text="BASE STATS:" FontAttributes="Bold" FontSize="Body" HorizontalOptions="Center"/>
+                                <CollectionView ItemsSource="{Binding Pokemon.BaseStats}">
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
-                                            <Border StrokeShape="RoundRectangle 20" Padding="20,5" BackgroundColor="{Binding ., Converter={StaticResource TypeColorConverter}}">
-                                                <Label TextColor="White" Text="{Binding .}" FontSize="Medium" FontAttributes="Bold" TextTransform="Uppercase"/>
-                                            </Border>
+                                            <Grid ColumnDefinitions="70,30,*" ColumnSpacing="10" Padding="0,3">
+                                                <Label TextColor="Gray" FontSize="Body" Grid.Column="0" 
+                                                       Text="{Binding StatString, StringFormat='{0}:'}" HorizontalOptions="End" VerticalOptions="Center"/>
+                                                <Label TextColor="Black" FontSize="Body" FontAttributes="Bold" Grid.Column="1" 
+                                                       Text="{Binding Number}" HorizontalOptions="End" VerticalOptions="Center"/>
+                                                <!--<ProgressBar ProgressColor="#DDDDDD" BackgroundColor="Transparent" ScaleY="0" 
+                                                             Grid.Column="2" Progress="1"/>-->
+                                                <ProgressBar ProgressColor="{Binding Number, Converter={StaticResource BaseStatColorConverter}}" BackgroundColor="Transparent" ScaleY="4" 
+                                                             Grid.Column="2" Progress="{Binding NumberNormalized}"/>
+                                            </Grid>
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
+                            </VerticalStackLayout>
 
-                                <!--DESCRIPTION-->
-                                <Grid Grid.Row="2" HorizontalOptions="Center">
-                                    <Label TextColor="Black" Text="{Binding Pokemon.Description}" FontSize="Body" Grid.Row="2" HorizontalTextAlignment="Center"/>
-                                </Grid>
+                            <!--STRENGTHS & WEAKNESSES-->
+                            <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10" Grid.Row="5">
 
-                                <!--WEIGHT & HEIGHT-->
-                                <Grid ColumnDefinitions="*, *" Grid.Row="3" ColumnSpacing="20">
-
-                                    <VerticalStackLayout HorizontalOptions="Fill" Grid.Column="0" Spacing="5">
-                                        <Label TextColor="Black" FontSize="Small" Text="Weight:" Margin="8,0"/>
-                                        <Border StrokeShape="RoundRectangle 15" Padding="10" HorizontalOptions="Fill">
-                                            <Label TextColor="Black" Text="{Binding Pokemon.Weight, StringFormat='{0:F1} kg'}" FontSize="Medium" HorizontalOptions="Center"/>
-                                        </Border>
-                                    </VerticalStackLayout>
-                                    <VerticalStackLayout HorizontalOptions="Fill" Grid.Column="1" Spacing="5">
-                                        <Label TextColor="Black" FontSize="Small" Text="Height:" Margin="8,0"/>
-                                        <Border StrokeShape="RoundRectangle 15" Padding="10" HorizontalOptions="Fill">
-                                            <Label TextColor="Black" Text="{Binding Pokemon.Height, StringFormat='{0:F1} m'}" FontSize="Medium" HorizontalOptions="Center"/>
-                                        </Border>
-                                    </VerticalStackLayout>
-                                </Grid>
-
-                                <!--BASE STATS-->
-                                <VerticalStackLayout Grid.Row="4" Spacing="10" HorizontalOptions="Center">
-                                    <Label TextColor="Black" Text="BASE STATS:" FontSize="Body" HorizontalOptions="Center"/>
-                                    <CollectionView ItemsSource="{Binding Pokemon.BaseStats}">
-                                        <CollectionView.ItemTemplate>
-                                            <DataTemplate>
-                                                <Grid ColumnDefinitions="70,30,*" ColumnSpacing="10" Padding="0,3">
-                                                    <Label TextColor="Gray" FontSize="Body" Grid.Column="0" 
-                                                       Text="{Binding StatString, StringFormat='{0}:'}" HorizontalOptions="End" VerticalOptions="Center"/>
-                                                    <Label TextColor="Black" FontSize="Body" FontAttributes="Bold" Grid.Column="1" 
-                                                       Text="{Binding Number}" HorizontalOptions="End" VerticalOptions="Center"/>
-                                                    <!--<ProgressBar ProgressColor="#DDDDDD" BackgroundColor="Transparent" ScaleY="0" 
-                                                             Grid.Column="2" Progress="1"/>-->
-                                                    <ProgressBar ProgressColor="{Binding Number, Converter={StaticResource BaseStatColorConverter}}" BackgroundColor="Transparent" ScaleY="4" 
-                                                             Grid.Column="2" Progress="{Binding NumberNormalized}"/>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </CollectionView.ItemTemplate>
-                                    </CollectionView>
+                                <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="10">
+                                    <Label FontSize="Small" FontAttributes="Bold" TextColor="Black" Text="STRENGTHS:" HorizontalOptions="Center"/>
+                                    <controls:TypeRelationCollectionView BindingContext="{Binding Strengths}"/>
                                 </VerticalStackLayout>
 
-                                <!--STRENGTHS & WEAKNESSES-->
-                                <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10" Grid.Row="5">
+                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="10">
+                                    <Label FontSize="Small" FontAttributes="Bold" TextColor="Black" Text="WEAKNESSES:" HorizontalOptions="Center"/>
+                                    <controls:TypeRelationCollectionView BindingContext="{Binding Weaknesses}"/>
+                                </VerticalStackLayout>
 
-                                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="10">
-                                        <Label FontSize="Small" TextColor="Black" Text="STRENGTHS:" HorizontalOptions="Center"/>
-                                        <controls:TypeRelationCollectionView BindingContext="{Binding Strengths}"/>
-                                    </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="10">
+                                    <Label FontSize="Small" FontAttributes="Bold" TextColor="Black" Text="IMMUNE TO:" HorizontalOptions="Center"/>
+                                    <controls:TypeRelationCollectionView BindingContext="{Binding Immunities}"/>
+                                </VerticalStackLayout>
 
-                                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="10">
-                                        <Label FontSize="Small" TextColor="Black" Text="WEAKNESSES:" HorizontalOptions="Center"/>
-                                        <controls:TypeRelationCollectionView BindingContext="{Binding Weaknesses}"/>
-                                    </VerticalStackLayout>
-
-                                    <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="10">
-                                        <Label FontSize="Small" TextColor="Black" Text="IMMUNE TO:" HorizontalOptions="Center"/>
-                                        <controls:TypeRelationCollectionView BindingContext="{Binding Immunities}"/>
-                                    </VerticalStackLayout>
-
-                                </Grid>
+                            </Grid>
 
 
-                                <!--EVOLUTIONS-->
-                                <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Grid.Row="6">
+                            <!--EVOLUTIONS-->
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Grid.Row="6">
 
-                                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="15">
-                                        <Label FontSize="Small" TextColor="Black" Text="Evolves from:" HorizontalOptions="Center"/>
-                                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding EvolvesFrom}" Spacing="5">
-                                            <BindableLayout.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Label TextColor="Gray" Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
-                                                </DataTemplate>
-                                            </BindableLayout.ItemTemplate>
-                                        </VerticalStackLayout>
-                                    </VerticalStackLayout>
-
-                                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="15">
-                                        <Label FontSize="Small" TextColor="Black" Text="Evolves into:" HorizontalOptions="Center"/>
-                                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding EvolvesTo}" Spacing="5">
-                                            <BindableLayout.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Label TextColor="Gray" Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
-                                                </DataTemplate>
-                                            </BindableLayout.ItemTemplate>
-                                        </VerticalStackLayout>
-                                    </VerticalStackLayout>
-
-                                </Grid>
-                                
-                                <!--MOVES-->
-                                <VerticalStackLayout Grid.Row="7" HorizontalOptions="Center" Spacing="15">
-                                    <Label FontSize="Small" TextColor="Black" Text="Moves" HorizontalOptions="Center"/>
-                                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Moves}" Spacing="5">
+                                <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="15">
+                                    <Label FontSize="Small" TextColor="Black" Text="Evolves from:" HorizontalOptions="Center"/>
+                                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding EvolvesFrom}" Spacing="5">
                                         <BindableLayout.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="20">
-                                                    <Label Grid.Column="0" TextColor="Gray" Text="{Binding Type}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
-                                                    <Label Grid.Column="1" TextColor="Gray" Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
-                                                </Grid>
+                                                <Label TextColor="Gray" Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
                                             </DataTemplate>
                                         </BindableLayout.ItemTemplate>
                                     </VerticalStackLayout>
                                 </VerticalStackLayout>
 
-                                <!--<Grid Grid.Row="1" RowDefinitions="Auto,400">
-                                    --><!--<Label Grid.Row="0" FontSize="Small" TextColor="Black" Text="Carousel Test" HorizontalOptions="Center"/>--><!--
+                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="15">
+                                    <Label FontSize="Small" TextColor="Black" Text="Evolves into:" HorizontalOptions="Center"/>
+                                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding EvolvesTo}" Spacing="5">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Label TextColor="Gray" Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </VerticalStackLayout>
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                            <!--MOVES-->
+                            <VerticalStackLayout Grid.Row="7" HorizontalOptions="Center" Spacing="15">
+                                <Label FontSize="Small" TextColor="Black" Text="Moves" HorizontalOptions="Center"/>
+                                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Moves}" Spacing="5">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="20">
+                                                <Label Grid.Column="0" TextColor="Gray" Text="{Binding Type}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                                <Label Grid.Column="1" TextColor="Gray" Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+
+                            <!--<Grid Grid.Row="1" RowDefinitions="Auto,400">
+                                    -->
+                            <!--<Label Grid.Row="0" FontSize="Small" TextColor="Black" Text="Carousel Test" HorizontalOptions="Center"/>-->
+                            <!--
                                     <IndicatorView HorizontalOptions="Center" 
                                                    IndicatorColor="LightGray" 
                                                    SelectedIndicatorColor="Gray"
                                                    IndicatorSize="12" 
                                                    IndicatorsShape="Square"
                                                    x:Name="SectionsIndicator">
-                                        --><!--<IndicatorView.IndicatorTemplate>
+                                        -->
+                            <!--<IndicatorView.IndicatorTemplate>
                                             <DataTemplate>
                                                 <Label TextColor="Black" Text="{Binding .}"/>
                                             </DataTemplate>
-                                        </IndicatorView.IndicatorTemplate>--><!--
+                                        </IndicatorView.IndicatorTemplate>-->
+                            <!--
                                     </IndicatorView>
                                     
                                     <Border Grid.Row="1" StrokeThickness="4" BackgroundColor="LightGray">
@@ -199,22 +203,24 @@
                                                 </x:Array>
                                             </CarouselView.ItemsSource>
 
-                                            --><!--<CarouselView.ItemsSource>
+                                            -->
+                            <!--<CarouselView.ItemsSource>
                                                 <x:Array Type="{x:Type BoxView}">
                                                     <BoxView Color="Blue" WidthRequest="200" HeightRequest="200"/>
                                                     <BoxView Color="Red" WidthRequest="200" HeightRequest="100"/>
                                                     <BoxView Color="Green" WidthRequest="100" HeightRequest="200"/>
                                                     <BoxView Color="Cyan" WidthRequest="200" HeightRequest="100"/>
                                                 </x:Array>
-                                            </CarouselView.ItemsSource>--><!--
+                                            </CarouselView.ItemsSource>-->
+                            <!--
                                         </CarouselView>
                                     
                                     </Border>
                                 </Grid>-->
 
-                            </Grid>
-                        </Border>
-                        
+                        </Grid>
+                        <!--</Border>-->
+
 
                     </Grid>
 
@@ -269,7 +275,7 @@
                         </Border>
                     </Grid>
                 </Grid>
-                
+
             </ScrollView>
 
             <controls:PokedexFrameView InputTransparent="True"/>

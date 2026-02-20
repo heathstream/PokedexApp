@@ -39,7 +39,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Grid ColumnDefinitions="2,Auto,*" Padding="10,5" ColumnSpacing="10" HeightRequest="80">
-                                <Border BackgroundColor="Transparent" Grid.Column="0" Grid.ColumnSpan="3" StrokeShape="RoundRectangle 10" StrokeThickness="2"/>
+                                <Border BackgroundColor="Transparent" Grid.Column="0" Grid.ColumnSpan="3" StrokeShape="RoundRectangle 10" StrokeThickness="1"/>
                                 <Grid Grid.Column="1" RowDefinitions="50" ColumnDefinitions="50" IsVisible="{Binding HasTwoTypes}" VerticalOptions="Center">
                                         <Image Source="{Binding FirstType, Converter={x:StaticResource TypeIconConverter}}" WidthRequest="50" Aspect="AspectFit" IsVisible="{Binding HasOneType}"/>
                                         <Image Source="{Binding SecondType, Converter={x:StaticResource TypeIconConverter}}" WidthRequest="35" Aspect="AspectFit" HorizontalOptions="End" VerticalOptions="End"/>
