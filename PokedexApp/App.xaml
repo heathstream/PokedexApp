@@ -13,6 +13,8 @@
 
             <converters:TypeColorConverter x:Key="TypeColorConverter"/>
             <converters:BaseStatColorConverter x:Key="BaseStatColorConverter"/>
+            <converters:TypeIconConverter x:Key="TypeIconConverter"/>
+            <converters:CollectionNotEmptyConverter x:Key="CollectionNotEmptyConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="PokedexApp.Controls.EvolutionCollectionView"
+    xmlns="http://schemas.microsoft.com/dotnet/maui/global"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/maui/global/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:PokedexApp.Controls"
+    mc:Ignorable="d">
+    <ContentView.Content>
+        <VerticalStackLayout BindableLayout.ItemsSource="{Binding .}" Spacing="5">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Border StrokeShape="RoundRectangle 15">
+                        <Grid RowDefinitions="*,Auto,Auto" Padding="15,10" HeightRequest="120">
+
+                            <Image Source="{Binding Sprite}" Grid.RowSpan="3" HorizontalOptions="End" VerticalOptions="Center" Scale="2" Opacity="0.7"/>
+                            
+                            <Label TextColor="Black" Text="Level 17" FontSize="Medium"
+                                    Grid.Row="0" VerticalOptions="Start" HorizontalOptions="Start"/>
+                            
+                            <HorizontalStackLayout Grid.Row="1" Spacing="5">
+                                <Label TextColor="Black" Text="{Binding Name}" FontSize="Title" FontAttributes="Bold" 
+                                       Grid.Row="1" VerticalOptions="End" HorizontalOptions="Start"/>
+                                <Label TextColor="Gray" Text="{Binding Id, StringFormat='#{0:000}'}" FontSize="Title" 
+                                       Grid.Row="1" VerticalOptions="End" HorizontalOptions="Start"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Grid.Row="2" BindableLayout.ItemsSource="{Binding Types}" Spacing="5" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="Start">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border StrokeShape="RoundRectangle 20" Padding="10,0,10,2" BackgroundColor="{Binding ., Converter={StaticResource TypeColorConverter}}">
+                                            <Label TextColor="White" Text="{Binding .}" FontSize="Body" FontAttributes="Bold" VerticalOptions="Center"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </HorizontalStackLayout>
+
+                        </Grid>
+                        
+                    </Border>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
+    </ContentView.Content>
+</ContentView>

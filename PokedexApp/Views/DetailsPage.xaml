@@ -118,31 +118,18 @@
 
 
                             <!--EVOLUTIONS-->
-                            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Grid.Row="6">
+                            <VerticalStackLayout Spacing="10" Grid.Row="6">
+                                
+                                <Label FontSize="Small" FontAttributes="Bold" TextColor="Black" Text="EVOLVES FROM:" 
+                                       HorizontalOptions="Center" IsVisible="{Binding EvolvesFrom, Converter={StaticResource CollectionNotEmptyConverter}}"/>
+                                <controls:EvolutionCollectionView BindingContext="{Binding EvolvesFrom}"/>
 
-                                <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="15">
-                                    <Label FontSize="Small" TextColor="Black" Text="Evolves from:" HorizontalOptions="Center"/>
-                                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding EvolvesFrom}" Spacing="5">
-                                        <BindableLayout.ItemTemplate>
-                                            <DataTemplate>
-                                                <Label TextColor="Gray" Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
-                                            </DataTemplate>
-                                        </BindableLayout.ItemTemplate>
-                                    </VerticalStackLayout>
-                                </VerticalStackLayout>
 
-                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="15">
-                                    <Label FontSize="Small" TextColor="Black" Text="Evolves into:" HorizontalOptions="Center"/>
-                                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding EvolvesTo}" Spacing="5">
-                                        <BindableLayout.ItemTemplate>
-                                            <DataTemplate>
-                                                <Label TextColor="Gray" Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
-                                            </DataTemplate>
-                                        </BindableLayout.ItemTemplate>
-                                    </VerticalStackLayout>
-                                </VerticalStackLayout>
-
-                            </Grid>
+                                <Label FontSize="Small" FontAttributes="Bold" TextColor="Black" Text="EVOLVES INTO:" 
+                                       HorizontalOptions="Center" IsVisible="{Binding EvolvesTo, Converter={StaticResource CollectionNotEmptyConverter}}"/>
+                                <controls:EvolutionCollectionView BindingContext="{Binding EvolvesTo}"/>
+                                
+                            </VerticalStackLayout>
 
                             <!--MOVES-->
                             <VerticalStackLayout Grid.Row="7" HorizontalOptions="Center" Spacing="15">
