@@ -97,44 +97,24 @@
                             </VerticalStackLayout>
 
                             <!--STRENGTHS & WEAKNESSES-->
-                            <!--<Grid ColumnDefinitions="*, *, *" ColumnSpacing="10" Grid.Row="5">
-
-                                <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="10">
-                                    <Label FontSize="Small" FontAttributes="Bold" TextColor="Black" Text="STRENGTHS:" HorizontalOptions="Center"/>
-                                    <controls:TypeRelationCollectionView BindingContext="{Binding Strengths}"/>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="10">
-                                    <Label FontSize="Small" FontAttributes="Bold" TextColor="Black" Text="WEAKNESSES:" HorizontalOptions="Center"/>
-                                    <controls:TypeRelationCollectionView BindingContext="{Binding Weaknesses}"/>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="10">
-                                    <Label FontSize="Small" FontAttributes="Bold" TextColor="Black" Text="IMMUNE TO:" HorizontalOptions="Center"/>
-                                    <controls:TypeRelationCollectionView BindingContext="{Binding Immunities}"/>
-                                </VerticalStackLayout>
-
-                            </Grid>-->
-
                             <VerticalStackLayout Grid.Row="5" Spacing="10" HorizontalOptions="Center">
-                                <Label TextColor="Black" Text="DAMAGE TAKEN BY:" FontAttributes="Bold" FontSize="Body" HorizontalOptions="Center"/>
+                                <Label TextColor="Black" Text="DAMAGE RELATIONS:" FontAttributes="Bold" FontSize="Body" HorizontalOptions="Center"/>
                                 <controls:TypeRelationCollectionView BindingContext="{Binding DamageRelations}"/>
                                 <Label TextColor="Black" Text="IMMUNE TO:" FontAttributes="Bold" FontSize="Body" HorizontalOptions="Center"
-                                       IsVisible="{Binding Immunities, Converter={StaticResource CollectionNotEmptyConverter}}"/>
+                                       IsVisible="{Binding Immunities, Converter={StaticResource PropertyNotEmptyConverter}}"/>
                                 <controls:TypeRelationCollectionView BindingContext="{Binding Immunities}"/>
                             </VerticalStackLayout>
 
 
                             <!--EVOLUTIONS-->
-                            <VerticalStackLayout Spacing="10" Grid.Row="6">
+                            <VerticalStackLayout Grid.Row="6" Spacing="10">
                                 
                                 <Label FontSize="Body" FontAttributes="Bold" TextColor="Black" Text="EVOLVES FROM:" 
-                                       HorizontalOptions="Center" IsVisible="{Binding EvolvesFrom, Converter={StaticResource CollectionNotEmptyConverter}}"/>
+                                       HorizontalOptions="Center" IsVisible="{Binding EvolvesFrom, Converter={StaticResource PropertyNotEmptyConverter}}"/>
                                 <controls:EvolutionCollectionView BindingContext="{Binding EvolvesFrom}"/>
 
-
                                 <Label FontSize="Body" FontAttributes="Bold" TextColor="Black" Text="EVOLVES INTO:" 
-                                       HorizontalOptions="Center" IsVisible="{Binding EvolvesTo, Converter={StaticResource CollectionNotEmptyConverter}}"/>
+                                       HorizontalOptions="Center" IsVisible="{Binding EvolvesTo, Converter={StaticResource PropertyNotEmptyConverter}}"/>
                                 <controls:EvolutionCollectionView BindingContext="{Binding EvolvesTo}"/>
                                 
                             </VerticalStackLayout>
@@ -153,64 +133,6 @@
                                     </BindableLayout.ItemTemplate>
                                 </VerticalStackLayout>
                             </VerticalStackLayout>
-
-                            <!--<Grid Grid.Row="1" RowDefinitions="Auto,400">
-                                    -->
-                            <!--<Label Grid.Row="0" FontSize="Small" TextColor="Black" Text="Carousel Test" HorizontalOptions="Center"/>-->
-                            <!--
-                                    <IndicatorView HorizontalOptions="Center" 
-                                                   IndicatorColor="LightGray" 
-                                                   SelectedIndicatorColor="Gray"
-                                                   IndicatorSize="12" 
-                                                   IndicatorsShape="Square"
-                                                   x:Name="SectionsIndicator">
-                                        -->
-                            <!--<IndicatorView.IndicatorTemplate>
-                                            <DataTemplate>
-                                                <Label TextColor="Black" Text="{Binding .}"/>
-                                            </DataTemplate>
-                                        </IndicatorView.IndicatorTemplate>-->
-                            <!--
-                                    </IndicatorView>
-                                    
-                                    <Border Grid.Row="1" StrokeThickness="4" BackgroundColor="LightGray">
-                                        <CarouselView BackgroundColor="AliceBlue" 
-                                                      HorizontalOptions="Fill" 
-                                                      Grid.Row="1" 
-                                                      x:Name="SectionsCarousel" 
-                                                      IndicatorView="{x:Reference SectionsIndicator}" 
-                                                      IsSwipeEnabled="True">
-                                        
-                                            <CarouselView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Grid BackgroundColor="Gray">
-                                                        <ContentView Content="{Binding}"/>
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </CarouselView.ItemTemplate>
-                                        
-                                            <CarouselView.ItemsSource>
-                                                <x:Array Type="{x:Type View}">
-                                                    <local:DetailsInfoView/>
-                                                    <local:DetailsEvolutionsView/>
-                                                    <local:DetailsMovesView/>
-                                                </x:Array>
-                                            </CarouselView.ItemsSource>
-
-                                            -->
-                            <!--<CarouselView.ItemsSource>
-                                                <x:Array Type="{x:Type BoxView}">
-                                                    <BoxView Color="Blue" WidthRequest="200" HeightRequest="200"/>
-                                                    <BoxView Color="Red" WidthRequest="200" HeightRequest="100"/>
-                                                    <BoxView Color="Green" WidthRequest="100" HeightRequest="200"/>
-                                                    <BoxView Color="Cyan" WidthRequest="200" HeightRequest="100"/>
-                                                </x:Array>
-                                            </CarouselView.ItemsSource>-->
-                            <!--
-                                        </CarouselView>
-                                    
-                                    </Border>
-                                </Grid>-->
 
                         </Grid>
 

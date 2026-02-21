@@ -20,6 +20,7 @@ namespace PokedexApp.Models
     public class evolution_detail
     {
         public int? min_level { get; set; }
+        public NamedApiResource? item { get; set; }
     }
 
     public class species

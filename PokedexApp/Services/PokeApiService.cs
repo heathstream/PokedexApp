@@ -1,4 +1,5 @@
-﻿using PokedexApp.Models;
+﻿using Android.AdServices.Common;
+using PokedexApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http.Json;
@@ -17,6 +18,7 @@ namespace PokedexApp.Services
         Dictionary<string, Pokemon> _pokemonCache = new();
         Dictionary<string, EvolutionChain> _evolutionChainCache = new();
         Dictionary<string, Move> _moveCache = new();
+        Dictionary<string, Item> _itemCache = new();
         List<PokemonListItem> _pkmnListItemCache = new();
 
         public PokeApiService()
@@ -43,6 +45,8 @@ namespace PokedexApp.Services
             PokemonApiData? pokemonApiData = await httpClient.GetFromJsonAsync<PokemonApiData>(uri);
             uri = $"https://pokeapi.co/api/v2/pokemon-species/{name}";
             SpeciesApiData? speciesApiData = await httpClient.GetFromJsonAsync<SpeciesApiData>(uri);
+            if (pokemonApiData == null || speciesApiData == null)
+                throw new Exception("Failed to retrieve Pokémon data.");
 
             // Create the Pokemon object and cache it for next time
             var pokemon = new Pokemon(pokemonApiData, speciesApiData);
@@ -65,10 +69,11 @@ namespace PokedexApp.Services
                 return _pkmnListItemCache;
 
             var uri = $"https://pokeapi.co/api/v2/pokemon?limit={NO_OF_POKEMON}";
+            PokemonListResponse? apiResponse = await httpClient.GetFromJsonAsync<PokemonListResponse>(uri);
+            if (apiResponse == null)
+                throw new Exception("Failed to retrieve Pokémon list items.");
 
-            PokemonListResponse? response = await httpClient.GetFromJsonAsync<PokemonListResponse>(uri);
-
-            var listItems = response.Results;
+            var listItems = apiResponse.Results;
             _pkmnListItemCache.AddRange(listItems);
             return listItems;
         }
@@ -98,6 +103,8 @@ namespace PokedexApp.Services
 
             var uri = pokemon.EvolutionChainUrl;
             EvolutionChainApiData? apiData = await httpClient.GetFromJsonAsync<EvolutionChainApiData>(uri);
+            if (apiData == null)
+                throw new Exception("Failed to retrieve EvolutionChain data.");
 
             var evolutionChain = new EvolutionChain()
             {
@@ -108,21 +115,51 @@ namespace PokedexApp.Services
             _evolutionChainCache[pokemon.Name.ToLower()] = evolutionChain;
             return evolutionChain;
 
-            async Task<ChainLink> Convert(chainlink apiData) => new ChainLink()
+            async Task<Evolution> Convert(chainlink apiData) => new Evolution()
                 {
                     Pokemon = await GetPokemonAsync(apiData.species.name),
-                    MinLevel = apiData.evolution_details.FirstOrDefault()?.min_level,
-                    EvolvesTo = (await Task.WhenAll(apiData.evolves_to.Select(Convert))).ToList()
+                    EvolvesTo = (await Task.WhenAll(apiData.evolves_to.Select(Convert))).ToList(),
+                    Details = new EvolutionDetails()
+                    {
+                        Item = await GetItemAsync(apiData.evolution_details.FirstOrDefault()?.item?.name),
+                        MinLevel = apiData.evolution_details.FirstOrDefault()?.min_level,
+                    }
                 };
         }
 
-        public async Task<Move> GetMoveAsync(string moveName)
+        public async Task<Item?> GetItemAsync(string? itemName)
         {
+            if (itemName == null) return null;
+            if (_itemCache.TryGetValue(itemName, out Item? cachedItem))
+                return cachedItem;
+
+            var uri = $"https://pokeapi.co/api/v2/item/{itemName}";
+            ItemApiData? apiData = await httpClient.GetFromJsonAsync<ItemApiData>(uri);
+            if (apiData == null)
+                throw new Exception("Failed to retrieve Item data.");
+
+            var item = new Item()
+            {
+                Name = apiData.name,
+                Cost = apiData.cost,
+                FlavorText = apiData.flavor_text_entries.Last(ft => ft.language.name == "en").flavor_text,
+                Category = Enum.Parse<ItemCategory>(apiData.category.name.Replace("-", "_"), true)
+            };
+
+            _itemCache[item.Name.ToLower()] = item;
+            return item;
+        }
+
+        public async Task<Move> GetMoveAsync(string? moveName)
+        {
+            if (moveName == null) return null;
             if (_moveCache.TryGetValue(moveName, out Move? cachedMove))
                 return cachedMove;
 
             var uri = $"https://pokeapi.co/api/v2/move/{moveName}";
             MoveApiData? apiData = await httpClient.GetFromJsonAsync<MoveApiData>(uri);
+            if (apiData == null)
+                throw new Exception("Failed to retrieve Move data.");
 
             var move = new Move(apiData);
 

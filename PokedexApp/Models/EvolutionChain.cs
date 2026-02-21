@@ -6,59 +6,84 @@ namespace PokedexApp.Models
 {
     public class EvolutionChain
     {
-        public ChainLink Chain { get; set; }
+        public Evolution Chain { get; set; }
         public int Id { get; set; }
 
-        public async Task<List<Pokemon>> GetEvolvesFrom(Pokemon pokemon)
+        public async Task<List<Evolution>> GetEvolvesFrom(Pokemon pokemon)
         {
-            List<Pokemon> evolvesFrom = new();
+            List<Evolution> evolvesFrom = new();
             ProcessLink(Chain);
             return evolvesFrom;
 
-            async void ProcessLink(ChainLink cl)
+            async void ProcessLink(Evolution e)
             {
-                if (cl.Pokemon == pokemon) return;
-                evolvesFrom.Add(cl.Pokemon);
+                if (e.Pokemon == pokemon) return;
+                evolvesFrom.Add(e);
 
-                if (cl.EvolvesTo != null && cl.EvolvesTo.Any())
+                if (e.EvolvesTo != null && e.EvolvesTo.Any())
                 {
-                    if (cl.EvolvesTo.Any(cl => cl.Pokemon == pokemon))
+                    if (e.EvolvesTo.Any(cl => cl.Pokemon == pokemon))
                         return;
-                    ProcessLink(cl.EvolvesTo.First());
+                    ProcessLink(e.EvolvesTo.First());
                 }
                 
             }
         }
-        public async Task<List<Pokemon>> GetEvolvesTo(Pokemon pokemon)
+        public async Task<List<Evolution>> GetEvolvesTo(Pokemon pokemon)
         {
-            List<Pokemon> evolvesTo = new();
+            List<Evolution> evolvesTo = new();
             ProcessChain(Chain);
             return evolvesTo;
 
-            void ProcessChain(ChainLink cl)
+            void ProcessChain(Evolution e)
             {
-                if (cl.EvolvesTo != null)
+                if (e.EvolvesTo != null)
                 {
-                    if (cl.Pokemon == pokemon)
+                    if (e.Pokemon == pokemon)
                     {
-                        if (cl.EvolvesTo != null)
-                            foreach (var link in cl.EvolvesTo)
-                                evolvesTo.Add(link.Pokemon);
+                        if (e.EvolvesTo != null)
+                            foreach (var evolution in e.EvolvesTo)
+                                evolvesTo.Add(evolution);
                         return;
                     }
-                    if (cl.EvolvesTo.Any())
-                        ProcessChain(cl.EvolvesTo.First());
+                    if (e.EvolvesTo.Any())
+                        ProcessChain(e.EvolvesTo.First());
                 }
             }
         }
     }
 
-    public class ChainLink
+    public class Evolution
     {
         public Pokemon Pokemon { get; set; }
-        public int? MinLevel { get; set; }
-        public List<ChainLink> EvolvesTo { get; set; }
+        public EvolutionDetails Details { get; set; }
+        public List<Evolution> EvolvesTo { get; set; }
+    }
 
-        //public ChainLink? EvolvesFrom { get; set; }
+    public class EvolutionDetails
+    {
+        public EvolutionTrigger Trigger { get; set; }
+        public Item? Item { get; set; }
+        public int? MinLevel { get; set; }
+    }
+
+    public enum EvolutionTrigger
+    {
+        LevelUp,
+        Trade,
+        UseItem,
+        Shed,
+        Spin,
+        TowerOfDarkness,
+        TowerOfWaters,
+        ThreeCriticalHits,
+        TakeDamage,
+        Other,
+        AgileStyleMove,
+        StrongStyleMove,
+        RecoilDamage,
+        UseMove,
+        ThreeDefeatedBisharp,
+        GimmighoulCoins
     }
 }

@@ -8,7 +8,7 @@ namespace PokedexApp.Models
     public partial class Move : ObservableObject
     {
         [ObservableProperty]
-        string? _name;
+        string _name;
 
         [ObservableProperty]
         int? _accuracy;

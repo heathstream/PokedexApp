@@ -14,19 +14,21 @@
                     <Border StrokeShape="RoundRectangle 15">
                         <Grid RowDefinitions="*,Auto,Auto" Padding="15,10" HeightRequest="110">
 
-                            <Image Source="{Binding Sprite}" Grid.RowSpan="3" HorizontalOptions="End" VerticalOptions="Center" Scale="2" Opacity="0.7"/>
+                            <Image Source="{Binding Pokemon.Sprite}" Grid.RowSpan="3" HorizontalOptions="End" VerticalOptions="Center" Scale="2" Opacity="0.7"/>
                             
-                            <Label TextColor="Black" Text="At level 17" FontSize="Body"
-                                    Grid.Row="0" VerticalOptions="Start" HorizontalOptions="Start"/>
+                            <Label TextColor="Black" Text="{Binding Details.MinLevel, StringFormat='At level {0}'}" FontSize="Body"
+                                    Grid.Row="0" VerticalOptions="Start" HorizontalOptions="Start" IsVisible="{Binding Details.MinLevel, Converter={StaticResource PropertyNotEmptyConverter}}"/>
+                            <Label TextColor="Black" Text="{Binding Details.Item.Name, StringFormat='By using a {0}'}" FontSize="Body"
+                                    Grid.Row="0" VerticalOptions="Start" HorizontalOptions="Start" IsVisible="{Binding Details.Item, Converter={StaticResource PropertyNotEmptyConverter}}"/>
                             
                             <HorizontalStackLayout Grid.Row="1" Spacing="5">
-                                <Label TextColor="Black" Text="{Binding Name}" FontSize="Large" FontAttributes="Bold" 
+                                <Label TextColor="Black" Text="{Binding Pokemon.Name}" FontSize="Large" FontAttributes="Bold" 
                                        Grid.Row="1" VerticalOptions="End" HorizontalOptions="Start"/>
-                                <Label TextColor="Gray" Text="{Binding Id, StringFormat='#{0:000}'}" FontSize="Large" 
+                                <Label TextColor="Gray" Text="{Binding Pokemon.Id, StringFormat='#{0:000}'}" FontSize="Large" 
                                        Grid.Row="1" VerticalOptions="End" HorizontalOptions="Start"/>
                             </HorizontalStackLayout>
 
-                            <HorizontalStackLayout Grid.Row="2" BindableLayout.ItemsSource="{Binding Types}" Spacing="5" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="Start">
+                            <HorizontalStackLayout Grid.Row="2" BindableLayout.ItemsSource="{Binding Pokemon.Types}" Spacing="5" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="Start">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate>
                                         <Border StrokeShape="RoundRectangle 20" Padding="10,0,10,2" BackgroundColor="{Binding ., Converter={StaticResource TypeColorConverter}}">

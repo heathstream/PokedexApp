@@ -27,8 +27,8 @@ namespace PokedexApp.ViewModels
         [ObservableProperty] Dictionary<PokemonType, double> _immunities;
         [ObservableProperty] Dictionary<PokemonType, double> _damageRelations;
 
-        [ObservableProperty] List<Pokemon> _evolvesFrom;
-        [ObservableProperty] List<Pokemon> _evolvesTo;
+        [ObservableProperty] List<Evolution> _evolvesFrom;
+        [ObservableProperty] List<Evolution> _evolvesTo;
         [ObservableProperty] List<Move> _moves;
 
         public bool HasTwoTypes => (Pokemon.Types.Count == 2);

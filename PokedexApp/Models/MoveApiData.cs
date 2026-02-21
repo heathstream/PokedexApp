@@ -12,13 +12,13 @@ namespace PokedexApp.Models
         public int? pp { get; set; }
         public int? priority { get; set; }
         public int? power { get; set; }
-        public type type { get; set; }
+        public NamedApiResource type { get; set; }
         public move_flavor_text[] flavor_text_entries { get; set; }
     }
 
     public class move_flavor_text
     {
         public string flavor_text { get; set; }
-        public language language { get; set; }
+        public NamedApiResource language { get; set; }
     }
 }

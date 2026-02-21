@@ -38,7 +38,7 @@ namespace PokedexApp.Models
 
     public class types
     {
-        public type type { get; set; }
+        public NamedApiResource type { get; set; }
         public int slot { get; set; }
     }
 
@@ -46,10 +46,10 @@ namespace PokedexApp.Models
     {
         public int effort { get; set; }
         public int base_stat { get; set; }
-        public stat stat { get; set; }
+        public NamedApiResource stat { get; set; }
     }
 
-    public class stat
+    public class NamedApiResource
     {
         public string name { get; set; }
         public string url { get; set; }
@@ -57,12 +57,7 @@ namespace PokedexApp.Models
 
     public class pokemon_move
     {
-        public move move { get; set; }
+        public NamedApiResource move { get; set; }
     }
 
-    public class move
-    {
-        public string name { get; set; }
-        public string url { get; set; }
-    }
 }
