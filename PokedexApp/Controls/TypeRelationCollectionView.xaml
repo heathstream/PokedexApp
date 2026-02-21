@@ -10,29 +10,27 @@
     xmlns:converters="clr-namespace:PokedexApp.Converters"
     mc:Ignorable="d">
     <ContentView.Content>
-        <CollectionView ItemsSource="{Binding .}">
-            <CollectionView.ItemTemplate>
+        <FlexLayout Grid.Row="5"
+            Wrap="Wrap"
+            Direction="Row"
+            AlignItems="Start"
+            JustifyContent="Center"
+            BindableLayout.ItemsSource="{Binding .}">
+
+            <BindableLayout.ItemTemplate>
                 <DataTemplate>
-                    <Grid RowDefinitions="*,5">
-                        <Border StrokeShape="RoundRectangle 20" Padding="10,5"  BackgroundColor="{Binding Key, Converter={StaticResource TypeColorConverter}}">
-                            <Grid RowDefinitions="Auto,*">
-                                <Label Grid.Row="0" TextColor="White" Text="{Binding Key}" TextTransform="Uppercase" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Center"/>
-                                <Label Grid.Row="1" TextColor="White" Text="{Binding Value, StringFormat='{0:F2}'}" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Border StrokeShape="RoundRectangle 20" Margin="2">
+                        <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="5">
+                            <Grid Grid.Column="0" Padding="12,5,8,5" BackgroundColor="{Binding Key, Converter={StaticResource TypeColorConverter}}">
+                                <Label Grid.Column="0" TextColor="White" Text="{Binding Key}" TextTransform="Uppercase" FontSize="Body" FontAttributes="Bold" HorizontalOptions="Center"/>
                             </Grid>
-                        </Border>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.EmptyView>
-                <Grid RowDefinitions="*,5">
-                    <Border StrokeShape="RoundRectangle 20" Padding="10,5"  BackgroundColor="{Binding Key, Converter={StaticResource TypeColorConverter}}">
-                        <Grid RowDefinitions="Auto,*">
-                            <Label Grid.Row="0" TextColor="White" Text="Test" TextTransform="Uppercase" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Center"/>
-                            <Label Grid.Row="1" TextColor="White" Text="Test" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Grid Grid.Column="1" Padding="0,5,10,5" BackgroundColor="White">
+                                <Label Grid.Column="1" TextColor="Black" Text="{Binding Value, StringFormat='x {0:0.##}'}" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Start"/>
+                            </Grid>
                         </Grid>
                     </Border>
-                </Grid>
-            </CollectionView.EmptyView>
-        </CollectionView>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
     </ContentView.Content>
 </ContentView>

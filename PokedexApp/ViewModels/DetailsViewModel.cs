@@ -25,6 +25,7 @@ namespace PokedexApp.ViewModels
         [ObservableProperty] Dictionary<PokemonType, double> _strengths;
         [ObservableProperty] Dictionary<PokemonType, double> _weaknesses;
         [ObservableProperty] Dictionary<PokemonType, double> _immunities;
+        [ObservableProperty] Dictionary<PokemonType, double> _damageRelations;
 
         [ObservableProperty] List<Pokemon> _evolvesFrom;
         [ObservableProperty] List<Pokemon> _evolvesTo;
@@ -44,6 +45,7 @@ namespace PokedexApp.ViewModels
             Strengths = await TypeRelations.GetStrengths(Pokemon);
             Weaknesses = await TypeRelations.GetWeaknesses(Pokemon);
             Immunities = await TypeRelations.GetImmunities(Pokemon);
+            DamageRelations = Strengths.Concat(Weaknesses).OrderBy(d => d.Value).ToDictionary();
 
             var evolutionChain = await _service.GetEvolutionChainAsync(Pokemon);
             EvolvesFrom = await evolutionChain.GetEvolvesFrom(Pokemon);
