@@ -119,7 +119,8 @@
                             <VerticalStackLayout Grid.Row="5" Spacing="10" HorizontalOptions="Center">
                                 <Label TextColor="Black" Text="DAMAGE TAKEN BY:" FontAttributes="Bold" FontSize="Body" HorizontalOptions="Center"/>
                                 <controls:TypeRelationCollectionView BindingContext="{Binding DamageRelations}"/>
-                                <Label TextColor="Black" Text="IMMUNE TO:" FontAttributes="Bold" FontSize="Body" HorizontalOptions="Center"/>
+                                <Label TextColor="Black" Text="IMMUNE TO:" FontAttributes="Bold" FontSize="Body" HorizontalOptions="Center"
+                                       IsVisible="{Binding Immunities, Converter={StaticResource CollectionNotEmptyConverter}}"/>
                                 <controls:TypeRelationCollectionView BindingContext="{Binding Immunities}"/>
                             </VerticalStackLayout>
 
