@@ -11,6 +11,11 @@ namespace PokedexApp.Helpers
         {
             var textInfo = new CultureInfo("en-us", true).TextInfo;
 
+            if (input.EndsWith("-f"))
+                input = input.Replace("-f", "♀");
+            else if (input.EndsWith("-m"))
+                input = input.Replace("-m", "♂");
+
             if (input.Any(c => c == '-'))
                 input = input.Replace('-', ' ');
 

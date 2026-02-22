@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using PokedexApp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,13 +43,14 @@ namespace PokedexApp.Models
                 OnPropertyChanged(nameof(HasId));
             }
         }
-
         public string Name { get; set; }
+        public string DisplayName { get; set; }
         public string Url { get; set; }
 
         public PokemonListItem(string name, string url)
         {
-            Name = name.Substring(0, 1).ToUpper() + name.Substring(1);
+            Name = name;
+            DisplayName = StringHelper.CleanName(name);
             Url = url;
         }
 

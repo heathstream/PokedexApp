@@ -36,7 +36,7 @@
                                 </Grid>
                                 <Grid Grid.Column="2" RowDefinitions="Auto,Auto" RowSpacing="2" VerticalOptions="Center">
                                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
-                                        <Label TextColor="Black" FontAttributes="Bold" Text="{Binding Name}" FontSize="Medium"/>
+                                        <Label TextColor="Black" FontAttributes="Bold" Text="{Binding DisplayName}" FontSize="Medium"/>
                                         <Label TextColor="Gray" Text="{Binding Id, StringFormat='#{0:000}'}" IsVisible="{Binding HasId}" FontSize="Medium" Grid.Column="1" VerticalOptions="Center"/>
                                     </Grid>
                                     <Grid Grid.Row="1" RowDefinitions="Auto">
