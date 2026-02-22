@@ -18,10 +18,11 @@ namespace PokedexApp.Converters
 
             return normalized switch
             {
-                >= 0.6 => Colors.SpringGreen,
-                >= 0.4 => Colors.Yellow,
-                >= 0.2 => Colors.Orange,
-                _ => Colors.Red
+                >= 0.8 => Color.FromArgb("3fd8ff"),
+                >= 0.6 => Color.FromArgb("3fa129"),
+                >= 0.4 => Color.FromArgb("fac000"),
+                >= 0.2 => Color.FromArgb("ff8000"),
+                _ => Color.FromArgb("e62829")
             };
         }
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
