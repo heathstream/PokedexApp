@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokedexApp.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -24,7 +25,7 @@ namespace PokedexApp.Models
         public Pokemon(PokemonApiData pData, SpeciesApiData sData)
         {
             Id = pData.id;
-            Name = pData.name.Substring(0, 1).ToUpper() + pData.name.Substring(1);
+            Name = StringHelper.CleanName(pData.name);
             Weight = pData.weight / 10;
             Height = pData.height / 10;
             Sprite = pData.sprites.other.official_artwork.front_default;

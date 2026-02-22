@@ -16,9 +16,6 @@ namespace PokedexApp.ViewModels
         [ObservableProperty] bool _isLoading = true;
         [ObservableProperty] bool _isLoaded = false;
 
-        [ObservableProperty] bool _isLoadingMoves = true;
-        [ObservableProperty] bool _isLoadedMoves = false;
-
         // POKEMON PROPERTIES
         [ObservableProperty] Pokemon _pokemon;
 
@@ -55,15 +52,6 @@ namespace PokedexApp.ViewModels
 
             IsLoading = false;
             IsLoaded = true;
-        }
-
-        public async Task LoadMovesAsync()
-        {
-            var moveTasks = Pokemon.Moves.Select(async m => await _service.GetMoveAsync(m));
-            Moves = (await Task.WhenAll(moveTasks)).ToList();
-
-            IsLoadingMoves = false;
-            IsLoadedMoves = true;
         }
     }
 }

@@ -17,16 +17,23 @@ namespace PokedexApp.Models
 
             async void ProcessLink(Evolution e)
             {
-                if (e.Pokemon == pokemon) return;
-                evolvesFrom.Add(e);
+                //if (e.Pokemon == pokemon) return;
+                //evolvesFrom.Add(e);
 
-                if (e.EvolvesTo != null && e.EvolvesTo.Any())
+                //if (e.EvolvesTo != null && e.EvolvesTo.Any())
+                //{
+                //    if (e.EvolvesTo.Any(cl => cl.Pokemon == pokemon))
+                //        return;
+                //    ProcessLink(e.EvolvesTo.First());
+                //}
+
+                if (e.EvolvesTo.Any(e => e.Pokemon == pokemon))
                 {
-                    if (e.EvolvesTo.Any(cl => cl.Pokemon == pokemon))
-                        return;
-                    ProcessLink(e.EvolvesTo.First());
+                    evolvesFrom.Add(e);
+                    return;
                 }
-                
+                foreach (var evo in e.EvolvesTo)
+                    ProcessLink(evo);
             }
         }
         public async Task<List<Evolution>> GetEvolvesTo(Pokemon pokemon)

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using PokedexApp.Helpers;
 
 namespace PokedexApp.Models
 {
@@ -33,12 +34,12 @@ namespace PokedexApp.Models
 
         public Move(MoveApiData data)
         {
-            Name = data.name ?? "Unnamed move";
-            Accuracy = data.accuracy ?? 0;
-            EffectChance = data.effect_chance ?? 0;
-            PowerPoints = data.pp ?? 0;
-            Priority = data.priority ?? 0;
-            Power = data.power ?? 0;
+            Name = StringHelper.CleanName(data.name) ?? "Unnamed Move";
+            Accuracy = data.accuracy ?? null;
+            EffectChance = data.effect_chance ?? null;
+            PowerPoints = data.pp ?? null;
+            Priority = data.priority ?? null;
+            Power = data.power ?? null;
             Type = (data.type != null) ? Enum.Parse<PokemonType>(data.type.name, true) : null;
             Description = (data.flavor_text_entries != null) ? data.flavor_text_entries.Last(t => t.language.name == "en").flavor_text : null;
         }

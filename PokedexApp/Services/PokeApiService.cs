@@ -1,4 +1,5 @@
 ﻿using Android.AdServices.Common;
+using PokedexApp.Helpers;
 using PokedexApp.Models;
 using System;
 using System.Collections.Generic;
@@ -140,7 +141,7 @@ namespace PokedexApp.Services
 
             var item = new Item()
             {
-                Name = apiData.name,
+                Name = StringHelper.CleanName(apiData.name),
                 Cost = apiData.cost,
                 FlavorText = apiData.flavor_text_entries.Last(ft => ft.language.name == "en").flavor_text,
                 Category = Enum.Parse<ItemCategory>(apiData.category.name.Replace("-", "_"), true)
