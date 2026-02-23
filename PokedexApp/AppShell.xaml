@@ -5,7 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:PokedexApp"
     xmlns:views="clr-namespace:PokedexApp.Views"
-    Title="PokedexApp">
+    Title="PokedexApp"
+    TabBarBackgroundColor="#dc0a2d"
+    TabBarTitleColor="White"
+    TabBarForegroundColor="White"
+    TabBarUnselectedColor="DarkRed">
 
     <!--<ShellContent
         Title="Home"
@@ -13,17 +17,18 @@
         Route="MainPage" />-->
     
     <TabBar>
-        <Tab Title="Pokemon">
+        <Tab Title="Pokemon" Icon="dog.png">
             <ShellContent Title="Pokemon" 
                           ContentTemplate="{DataTemplate local:MainPage}" 
-                          Route="MainPage"/>
+                          Route="MainPage"
+                          x:Name="pokemonItem"/>
         </Tab>
-        <Tab Title="Items">
+        <Tab Title="Items" Icon="water_spray.png">
             <ShellContent Title="Items" 
                           ContentTemplate="{DataTemplate views:ItemsPage}"
                           Route="ItemsPage"/>
         </Tab>
-        <Tab Title="Moves">
+        <Tab Title="Moves" Icon="explosion.png">
             <ShellContent Title="Moves" 
                           ContentTemplate="{DataTemplate views:MovesPage}"
                           Route="MovesPage"/>
