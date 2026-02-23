@@ -4,11 +4,30 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:PokedexApp"
+    xmlns:views="clr-namespace:PokedexApp.Views"
     Title="PokedexApp">
 
-    <ShellContent
+    <!--<ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+        Route="MainPage" />-->
+    
+    <TabBar>
+        <Tab Title="Pokemon">
+            <ShellContent Title="Pokemon" 
+                          ContentTemplate="{DataTemplate local:MainPage}" 
+                          Route="MainPage"/>
+        </Tab>
+        <Tab Title="Items">
+            <ShellContent Title="Items" 
+                          ContentTemplate="{DataTemplate views:ItemsPage}"
+                          Route="ItemsPage"/>
+        </Tab>
+        <Tab Title="Moves">
+            <ShellContent Title="Moves" 
+                          ContentTemplate="{DataTemplate views:MovesPage}"
+                          Route="MovesPage"/>
+        </Tab>
+    </TabBar>
+    
 </Shell>

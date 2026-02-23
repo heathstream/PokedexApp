@@ -10,6 +10,7 @@ namespace PokedexApp.Models
     {
         public int Id { get; init; }
         public string Name { get; init; }
+        public string DisplayName { get; init; }
         public List<PokemonType> Types { get; init; }
         public PokemonType FirstType => Types[0];
         public PokemonType? SecondType => (Types.Count > 1) ? Types[1] : null;
@@ -25,7 +26,8 @@ namespace PokedexApp.Models
         public Pokemon(PokemonApiData pData, SpeciesApiData sData)
         {
             Id = pData.id;
-            Name = StringHelper.CleanName(pData.name);
+            Name = pData.name;
+            DisplayName = StringHelper.CleanName(Name);
             Weight = pData.weight / 10;
             Height = pData.height / 10;
             Sprite = pData.sprites.other.official_artwork.front_default;

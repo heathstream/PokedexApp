@@ -35,7 +35,7 @@
 
                             <!--NAME LABEL-->
                             <HorizontalStackLayout Grid.Row="0" Spacing="5" HorizontalOptions="Center">
-                                <Label TextColor="Black" FontSize="Title" FontAttributes="Bold" Text="{Binding Pokemon.Name}" HorizontalOptions="Center" x:Name="NameLabel"/>
+                                <Label TextColor="Black" FontSize="Title" FontAttributes="Bold" Text="{Binding Pokemon.DisplayName}" HorizontalOptions="Center" x:Name="NameLabel"/>
                                 <Label TextColor="Gray" FontSize="Title" Text="{Binding Pokemon.Id, StringFormat='#{0:000}'}" HorizontalOptions="Start" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
 
