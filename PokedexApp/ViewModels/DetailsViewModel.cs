@@ -42,7 +42,7 @@ namespace PokedexApp.ViewModels
             Strengths = await TypeRelations.GetStrengths(Pokemon);
             Weaknesses = await TypeRelations.GetWeaknesses(Pokemon);
             Immunities = await TypeRelations.GetImmunities(Pokemon);
-            DamageRelations = Strengths.Concat(Weaknesses).OrderBy(d => d.Value).ToDictionary();
+            DamageRelations = Strengths.Concat(Weaknesses).Concat(Immunities).OrderByDescending(d => d.Value).ToDictionary();
 
             var evolutionChain = await _service.GetEvolutionChainAsync(Pokemon);
             EvolvesFrom = await evolutionChain.GetEvolvesFrom(Pokemon);

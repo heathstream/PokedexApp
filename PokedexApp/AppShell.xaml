@@ -17,7 +17,7 @@
         Route="MainPage" />-->
     
     <TabBar>
-        <Tab Title="Pokemon" Icon="dog.png">
+        <Tab Title="Pokémon" Icon="dog.png">
             <ShellContent Title="Pokemon" 
                           ContentTemplate="{DataTemplate local:MainPage}" 
                           Route="MainPage"

@@ -15,6 +15,7 @@
             <converters:BaseStatColorConverter x:Key="BaseStatColorConverter"/>
             <converters:TypeIconConverter x:Key="TypeIconConverter"/>
             <converters:PropertyNotEmptyConverter x:Key="PropertyNotEmptyConverter"/>
+            <converters:TypeRelationStringConverter x:Key="TypeRelationStringConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

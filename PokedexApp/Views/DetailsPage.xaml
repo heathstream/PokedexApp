@@ -100,15 +100,12 @@
                             <VerticalStackLayout Grid.Row="5" Spacing="10" HorizontalOptions="Center">
                                 <Label TextColor="Black" Text="DAMAGE RELATIONS:" FontAttributes="Bold" FontSize="Body" HorizontalOptions="Center"/>
                                 <controls:TypeRelationCollectionView BindingContext="{Binding DamageRelations}"/>
-                                <Label TextColor="Black" Text="IMMUNE TO:" FontAttributes="Bold" FontSize="Body" HorizontalOptions="Center"
-                                       IsVisible="{Binding Immunities, Converter={StaticResource PropertyNotEmptyConverter}}"/>
-                                <controls:TypeRelationCollectionView BindingContext="{Binding Immunities}"/>
                             </VerticalStackLayout>
 
 
                             <!--EVOLUTIONS-->
                             <VerticalStackLayout Grid.Row="6" Spacing="10">
-                                
+
                                 <Label FontSize="Body" FontAttributes="Bold" TextColor="Black" Text="EVOLVES FROM:" 
                                        HorizontalOptions="Center" IsVisible="{Binding EvolvesFrom, Converter={StaticResource PropertyNotEmptyConverter}}"/>
                                 <controls:EvolutionCollectionView BindingContext="{Binding EvolvesFrom}"/>
@@ -116,22 +113,7 @@
                                 <Label FontSize="Body" FontAttributes="Bold" TextColor="Black" Text="EVOLVES INTO:" 
                                        HorizontalOptions="Center" IsVisible="{Binding EvolvesTo, Converter={StaticResource PropertyNotEmptyConverter}}"/>
                                 <controls:EvolutionCollectionView BindingContext="{Binding EvolvesTo}"/>
-                                
-                            </VerticalStackLayout>
 
-                            <!--MOVES-->
-                            <VerticalStackLayout Grid.Row="7" HorizontalOptions="Center" Spacing="15">
-                                <Label FontSize="Small" TextColor="Black" Text="Moves" HorizontalOptions="Center"/>
-                                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Moves}" Spacing="5">
-                                    <BindableLayout.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="20">
-                                                <Label Grid.Column="0" TextColor="Gray" Text="{Binding Type}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
-                                                <Label Grid.Column="1" TextColor="Gray" Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </BindableLayout.ItemTemplate>
-                                </VerticalStackLayout>
                             </VerticalStackLayout>
 
                         </Grid>

@@ -25,7 +25,7 @@
                                 <Label Grid.Column="0" TextColor="White" Text="{Binding Key}" TextTransform="Uppercase" FontSize="Body" FontAttributes="Bold" HorizontalOptions="Center"/>
                             </Grid>
                             <Grid Grid.Column="1" Padding="0,5,10,5" BackgroundColor="White">
-                                <Label Grid.Column="1" TextColor="Black" Text="{Binding Value, StringFormat='x {0:0.##}'}" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Start"/>
+                                <Label Grid.Column="1" TextColor="Black" Text="{Binding Value, Converter={StaticResource TypeRelationStringConverter}}" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Start"/>
                             </Grid>
                         </Grid>
                     </Border>
