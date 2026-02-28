@@ -4,8 +4,8 @@ using System.Text;
 
 namespace PokedexApp.Models
 {
-    public class PokemonListResponse
+    public class ListApiResponse<T>
     {
-        public List<PokemonListItem> Results { get; set; }
+        public List<T> Results { get; set; }
     }
 }

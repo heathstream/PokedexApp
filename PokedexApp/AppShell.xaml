@@ -9,29 +9,28 @@
     TabBarBackgroundColor="#dc0a2d"
     TabBarTitleColor="White"
     TabBarForegroundColor="White"
-    TabBarUnselectedColor="DarkRed">
+    TabBarUnselectedColor="#f6c2ca">
 
-    <!--<ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />-->
-    
     <TabBar>
         <Tab Title="Pokémon" Icon="dog.png">
-            <ShellContent Title="Pokemon" 
+            <ShellContent Title="Pokémon" 
                           ContentTemplate="{DataTemplate local:MainPage}" 
-                          Route="MainPage"
-                          x:Name="pokemonItem"/>
+                          Route="MainPage"/>
         </Tab>
-        <Tab Title="Items" Icon="water_spray.png">
-            <ShellContent Title="Items" 
-                          ContentTemplate="{DataTemplate views:ItemsPage}"
-                          Route="ItemsPage"/>
+        <Tab Title="Types" Icon="leaf.png">
+            <ShellContent Title="Types" 
+                          ContentTemplate="{DataTemplate views:TypesPage}"
+                          Route="TypesPage"/>
         </Tab>
         <Tab Title="Moves" Icon="explosion.png">
             <ShellContent Title="Moves" 
-                          ContentTemplate="{DataTemplate views:MovesPage}"
-                          Route="MovesPage"/>
+                          ContentTemplate="{DataTemplate views:MoveSearchPage}"
+                          Route="MoveSearchPage"/>
+        </Tab>
+        <Tab Title="Items" Icon="water_spray.png">
+            <ShellContent Title="Items" 
+                          ContentTemplate="{DataTemplate views:ItemSearchPage}"
+                          Route="ItemSearchPage"/>
         </Tab>
     </TabBar>
     

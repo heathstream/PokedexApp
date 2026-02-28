@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using PokedexApp.Helpers;
+﻿using PokedexApp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,13 +6,33 @@ using System.Text;
 
 namespace PokedexApp.Models
 {
-    public class PokemonListItem : INotifyPropertyChanged
+    public abstract class ListItem
+    {
+        public abstract string Name { get; set; }
+        public abstract string DisplayName { get; set; }
+    }
+
+    public class ItemListItem : ListItem
+    {
+        public override string Name { get; set; }
+        public override string DisplayName { get; set; }
+    }
+
+    public class MoveListItem : ListItem
+    {
+        public override string Name { get; set; }
+        public override string DisplayName { get; set; }
+    }
+
+    public class PokemonListItem : ListItem, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
         List<PokemonType>? _types;
         int? _id;
 
+        public override string Name { get; set; }
+        public override string DisplayName { get; set; }
         public PokemonType? FirstType => Types?[0];
         public PokemonType? SecondType => HasTwoTypes ? Types?[1] : null;
         public bool HasTwoTypes => Types?.Count > 1;
@@ -21,7 +40,7 @@ namespace PokedexApp.Models
         public bool HasId => Id != null;
 
         public List<PokemonType>? Types
-        { 
+        {
             get => _types;
             set
             {
@@ -43,8 +62,6 @@ namespace PokedexApp.Models
                 OnPropertyChanged(nameof(HasId));
             }
         }
-        public string Name { get; set; }
-        public string DisplayName { get; set; }
         public string Url { get; set; }
 
         public PokemonListItem(string name, string url)
@@ -54,7 +71,7 @@ namespace PokedexApp.Models
             Url = url;
         }
 
-        public void OnPropertyChanged(string propertyName) => 
+        public void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

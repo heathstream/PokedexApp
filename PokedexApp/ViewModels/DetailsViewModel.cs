@@ -33,7 +33,7 @@ namespace PokedexApp.ViewModels
         public DetailsViewModel(string pokemonName, PokeApiService service)
         {
             _service = service;
-            Task.Run(() => LoadAsync(pokemonName));
+            LoadAsync(pokemonName);
         }
 
         public async Task LoadAsync(string pokemonName)
@@ -48,7 +48,7 @@ namespace PokedexApp.ViewModels
             EvolvesFrom = await evolutionChain.GetEvolvesFrom(Pokemon);
             EvolvesTo = await evolutionChain.GetEvolvesTo(Pokemon);
 
-            await Task.Delay(500);
+            await Task.Delay(1500);
 
             IsLoading = false;
             IsLoaded = true;

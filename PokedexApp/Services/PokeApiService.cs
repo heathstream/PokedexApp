@@ -12,29 +12,33 @@ namespace PokedexApp.Services
 {
     public class PokeApiService
     {
-        const int NO_OF_POKEMON = 1000;
+        const int NO_OF_POKEMON = 1350;
+        const int NO_OF_ITEMS = 100000;
+        const int NO_OF_MOVES = 100000;
 
-        HttpClient httpClient;
+        HttpClient httpClient = new HttpClient();
 
-        Dictionary<string, Pokemon> _pokemonCache = new();
         Dictionary<string, EvolutionChain> _evolutionChainCache = new();
-        Dictionary<string, Move> _moveCache = new();
+        Dictionary<string, Pokemon> _pokemonCache = new();
         Dictionary<string, Item> _itemCache = new();
+        Dictionary<string, Move> _moveCache = new();
+
         List<PokemonListItem> _pkmnListItemCache = new();
+        List<ItemListItem> _itemListItemCache = new();
+        List<MoveListItem> _moveListItemCache = new();
 
         public PokeApiService()
         {
-            httpClient = new HttpClient();
             Task.Run(GetTypeRelationsAsync);
         }
 
-        public async Task<List<Pokemon>> GetAllPokemonAsync()
-        {
-            var pokemon = new List<Pokemon>();
-            for (int i = 1; i <= NO_OF_POKEMON; i++)
-                pokemon.Add(await GetPokemonAsync(i.ToString()));
-            return pokemon;
-        }
+        //public async Task<List<Pokemon>> GetAllPokemonAsync()
+        //{
+        //    var pokemon = new List<Pokemon>();
+        //    for (int i = 1; i <= NO_OF_POKEMON; i++)
+        //        pokemon.Add(await GetPokemonAsync(i.ToString()));
+        //    return pokemon;
+        //}
 
         public async Task<Pokemon> GetPokemonAsync(string name)
         {
@@ -70,12 +74,42 @@ namespace PokedexApp.Services
                 return _pkmnListItemCache;
 
             var uri = $"https://pokeapi.co/api/v2/pokemon?limit={NO_OF_POKEMON}";
-            PokemonListResponse? apiResponse = await httpClient.GetFromJsonAsync<PokemonListResponse>(uri);
+            ListApiResponse<PokemonListItem>? apiResponse = await httpClient.GetFromJsonAsync<ListApiResponse<PokemonListItem>>(uri);
             if (apiResponse == null)
                 throw new Exception("Failed to retrieve Pokémon list items.");
 
             var listItems = apiResponse.Results;
             _pkmnListItemCache.AddRange(listItems);
+            return listItems;
+        }
+
+        public async Task<List<ItemListItem>> GetItemListItemsAsync()
+        {
+            if (_itemListItemCache.Any())
+                return _itemListItemCache;
+
+            var uri = $"https://pokeapi.co/api/v2/item?limit={NO_OF_ITEMS}";
+            ListApiResponse<ItemListItem>? apiResponse = await httpClient.GetFromJsonAsync<ListApiResponse<ItemListItem>>(uri);
+            if (apiResponse == null)
+                throw new Exception("Failed to retrieve Item list items.");
+
+            var listItems = apiResponse.Results;
+            _itemListItemCache.AddRange(listItems);
+            return listItems;
+        }
+
+        public async Task<List<MoveListItem>> GetMoveListItemsAsync()
+        {
+            if (_itemListItemCache.Any())
+                return _moveListItemCache;
+
+            var uri = $"https://pokeapi.co/api/v2/move?limit={NO_OF_MOVES}";
+            ListApiResponse<MoveListItem>? apiResponse = await httpClient.GetFromJsonAsync<ListApiResponse<MoveListItem>>(uri);
+            if (apiResponse == null)
+                throw new Exception("Failed to retrieve Item list items.");
+
+            var listItems = apiResponse.Results;
+            _moveListItemCache.AddRange(listItems);
             return listItems;
         }
 

@@ -13,6 +13,7 @@ namespace PokedexApp.Models
         public int? priority { get; set; }
         public int? power { get; set; }
         public NamedApiResource type { get; set; }
+        public NamedApiResource damage_class { get; set; }
         public move_flavor_text[] flavor_text_entries { get; set; }
     }
 

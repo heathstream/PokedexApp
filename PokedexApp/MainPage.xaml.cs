@@ -34,14 +34,6 @@ namespace PokedexApp
             //    FilteredPokemonList.Add(p);
         }
 
-        //public async Task LoadAllPokemon()
-        //{
-        //    _fullPokemonList = await _service.GetAllPokemonAsync();
-        //    foreach (var p in _fullPokemonList)
-        //        FilteredPokemonList.Add(p);
-        //    pokemonList.ItemsSource = FilteredPokemonList;
-        //}
-
         private async void Entry_TextChanged(object sender, TextChangedEventArgs e)
         {
             // To reduce lag, I create a cancellation token which gets cancelled at the start of the method. This way, only when the user

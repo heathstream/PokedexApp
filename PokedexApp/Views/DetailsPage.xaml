@@ -24,8 +24,8 @@
                     <Grid RowDefinitions="300, *" IsVisible="{Binding IsLoaded}">
 
                         <!--TOP SPRITE VIEW-->
-                        <BoxView Grid.Row="0"/>
-                        <Image WidthRequest="300" ScaleX="1.5" ScaleY="0.3" Source="blobshadow.png" Grid.Row="0" TranslationY="110" Opacity="0.3"/>
+                        <BoxView Grid.Row="0" BackgroundColor="Black"/>
+                        <!--<Image WidthRequest="300" ScaleX="1.5" ScaleY="0.3" Source="blobshadow.png" Grid.Row="0" TranslationY="110" Opacity="0.3"/>-->
                         <Image WidthRequest="250" HeightRequest="300" Source="{Binding Pokemon.Sprite}" Grid.Row="0" TranslationY="25" Shadow="0 0 10 Cyan 0.8"/>
 
 
@@ -120,16 +120,16 @@
 
                     </Grid>
 
-                    <Grid RowDefinitions="300, *" InputTransparent="True">
+                    <Grid RowDefinitions="300, *" InputTransparent="True" IsVisible="{Binding IsLoading}">
 
-                        <ActivityIndicator WidthRequest="200" HeightRequest="200" IsRunning="True" Color="#DC0A2D" Grid.Row="0" TranslationY="40" IsVisible="{Binding IsLoading}"/>
+                        <BoxView Grid.Row="0" BackgroundColor="Black"/>
+                        <ActivityIndicator WidthRequest="100" HeightRequest="100" IsRunning="True" Color="Cyan" Grid.Row="0" />
 
-                        <Border StrokeShape="RoundRectangle 120,120,0,0" StrokeThickness="0" Grid.Row="1">
 
-                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="20" Padding="50,20" Grid.Row="1" BackgroundColor="White" IsVisible="{Binding IsLoading}">
+                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="20" Padding="40,20" Grid.Row="1" BackgroundColor="White" >
 
                                 <!--NAME LABEL-->
-                                <controls:ShimmerView Grid.Row="0" CornerRadius="5" WidthRequest="240" HeightRequest="50" HorizontalOptions="Center"/>
+                                <controls:ShimmerView Grid.Row="0" CornerRadius="5" WidthRequest="200" HeightRequest="34" HorizontalOptions="Center"/>
 
                                 <!--TYPES-->
                                 <HorizontalStackLayout Grid.Row="1" HorizontalOptions="Center" Spacing="12">
@@ -138,20 +138,21 @@
                                 </HorizontalStackLayout>
 
                                 <!--DESCRIPTION-->
-                                <VerticalStackLayout Grid.Row="2" HorizontalOptions="Center" Spacing="10">
-                                    <controls:ShimmerView CornerRadius="5" WidthRequest="520" HeightRequest="22"/>
-                                    <controls:ShimmerView CornerRadius="5" WidthRequest="290" HeightRequest="22" HorizontalOptions="Start"/>
-                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Row="2" HorizontalOptions="Center" Spacing="5">
+                                    <controls:ShimmerView CornerRadius="5" WidthRequest="320" HeightRequest="18"/>
+                                    <controls:ShimmerView CornerRadius="5" HeightRequest="18" HorizontalOptions="Fill"/>
+                                    <controls:ShimmerView CornerRadius="5" WidthRequest="200" HeightRequest="18" HorizontalOptions="Start"/>
+                            </VerticalStackLayout>
 
                                 <!--WEIGHT & HEIGHT-->
                                 <Grid ColumnDefinitions="*, *" Grid.Row="3" ColumnSpacing="20">
-                                    <controls:ShimmerView CornerRadius="15" HorizontalOptions="Fill" HeightRequest="80"/>
-                                    <controls:ShimmerView CornerRadius="15" HorizontalOptions="Fill" HeightRequest="80" VerticalOptions="Fill" Grid.Column="1"/>
+                                    <controls:ShimmerView CornerRadius="15" HorizontalOptions="Fill" HeightRequest="70"/>
+                                    <controls:ShimmerView CornerRadius="15" HorizontalOptions="Fill" HeightRequest="70" VerticalOptions="Fill" Grid.Column="1"/>
                                 </Grid>
 
                                 <!--BASE STATS-->
-                                <VerticalStackLayout Grid.Row="4" Spacing="10">
-                                    <controls:ShimmerView CornerRadius="5" WidthRequest="100" HeightRequest="22"/>
+                                <VerticalStackLayout Grid.Row="4" Spacing="7">
+                                    <controls:ShimmerView CornerRadius="5" WidthRequest="100" HeightRequest="28"/>
                                     <controls:ShimmerView CornerRadius="5" HorizontalOptions="Fill" HeightRequest="22"/>
                                     <controls:ShimmerView CornerRadius="5" HorizontalOptions="Fill" HeightRequest="22"/>
                                     <controls:ShimmerView CornerRadius="5" HorizontalOptions="Fill" HeightRequest="22"/>
@@ -168,7 +169,6 @@
                                 </Grid>
 
                             </Grid>
-                        </Border>
                     </Grid>
                 </Grid>
 

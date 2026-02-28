@@ -58,7 +58,7 @@ namespace PokedexApp.Controls
                 brush.GradientStops[2].Offset = (float)v + 0.5f;
             }, -1.0, 2.0);
 
-            animation.Commit(this, "Shimmer", length: 800, easing: Easing.Linear, repeat: () => true);
+            animation.Commit(this, "Shimmer", length: 1600, easing: Easing.Linear, repeat: () => true);
         }
 
         void StopShimmer() => this.AbortAnimation("Shimmer");
