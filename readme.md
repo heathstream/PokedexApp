@@ -9,6 +9,6 @@ To practice and help retain the knowledge I've gained during my studies, I decid
 - Ability to navigate to a Pokémon's evolution through the Details page
 
 <img width="270" height="606" alt="Screenshot_1774536469" src="https://github.com/user-attachments/assets/e01a6c1c-807b-49e9-afec-cb0cfdf0d2df" />
-<img width="270" height="606" alt="Screenshot_1774536490" src="https://github.com/user-attachments/assets/444f202b-3d16-4fd3-bbed-490695b698e6" />
 <img width="270" height="606" alt="Screenshot_1774536493" src="https://github.com/user-attachments/assets/e7be02b8-c9ee-4662-9715-f6ba70eeaff9" />
 <img width="270" height="606" alt="Screenshot_1774536502" src="https://github.com/user-attachments/assets/efeb0562-02eb-451f-b1c6-a93222002718" />
+<img width="270" height="606" alt="Screenshot_1774536490" src="https://github.com/user-attachments/assets/444f202b-3d16-4fd3-bbed-490695b698e6" />
