@@ -1,12 +1,20 @@
 # Pokédex App
 ### A simple Pokédex app made with .NET MAUI.
-To practice and help retain the knowledge I've gained during my studies, I decided to create this Pokédex as a fun personal project. The app lets you search for any Pokémon by name, and bring up a Details page with more information (types, stats, evolutions and more), which it fetches from the awesome free PokéAPI. I also wanted the app to evoke the feel of a physical Pokédex through its styling.
+To practice and help retain the knowledge I've gained during my studies, I decided to create this Pokédex as a fun personal project. The app lets you search for any Pokémon by name, and bring up a Details page with more information (types, stats, evolutions and more), which it fetches from the awesome free PokéAPI. I've also put effort into the UI and how I can make it evoke the feeling of a physical Pokédex while still feeling like a modern app. 
 
-#### Things I want to add:
+#### Coming Soon:
 - Ability to search for Moves and Items
 - A Types page where you can mix and match types and find out the resulting strengths/weaknesses
 - More info on the Details page
 - Ability to navigate to a Pokémon's evolution through the Details page
+- Caching of images
+
+#### Long-term To-Do:
+- User accounts
+- Favorite Pokémon
+- Ability to put together and save Pokémon teams
+- Google Play Store release
+- App Store release
 
 A small video of the app can be seen here:
 <https://youtube.com/shorts/gowlCaqrY7M>
